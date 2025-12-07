@@ -51,7 +51,7 @@ returnStmt  : RETURN expr? ;
 expr
     : expr DOT NAME                     # Attribute
     | expr LBRACK expr RBRACK           # Subscript
-    |expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
+    | expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
     | expr STAR expr                    # Multiplication
     | expr SLASH expr                   # Division
     | expr PLUS expr                    # Addition
@@ -65,7 +65,6 @@ expr
     | NONE                              # NoneLit
     | listExpr                          # List
     | dictionary                        # Dict
-    | LPAREN expr RPAREN                # Parens
     ;
 
 // Collections
