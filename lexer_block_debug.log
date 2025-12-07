@@ -1,0 +1,1179 @@
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): not starting block; peek=4 spaces=8
+handleNewline(): ERROR -> Indentation error: unexpected increased indent to 8 (no block start). Current block indent: 4
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): not starting block; peek=4 spaces=8
+handleNewline(): ERROR -> Indentation error: unexpected increased indent to 8 (no block start). Current block indent: 4
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected == true; starting new block with indent 8
+handleNewline(): pushed-block indent stack top -> 8
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=8 spaces=0
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected == true; starting new block with indent 8
+handleNewline(): pushed-block indent stack top -> 8
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=8 spaces=0
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected == true; starting new block with indent 8
+handleNewline(): pushed-block indent stack top -> 8
+handleNewline(): called
+handleNewline(): emitted NEWLINE
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=8 spaces=0
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=8 spaces=0
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=8 spaces=0
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): queued virtual NEWLINE
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=8 spaces=0
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): first real line indentation 4 ignored (baseline forced to 0)
+handleNewline(): first-line block start -> pushed 0
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): ERROR -> Indentation error: indent 4 does not match any open block indent
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[0, 4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
+=== New Lexer Session ===
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): setting baseline indent to 4
+handleNewline(): first-line block start -> pushed 4
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): not starting block; peek=8 spaces=4
+handleNewline(): popped indent 8 -> emitted BLOCKEND
+handleNewline(): finished. current stack=[4, 4]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=4 spaces=0
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): popped indent 4 -> emitted BLOCKEND
+handleNewline(): indent stack empty, pushed base 0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): not starting block; peek=0 spaces=0
+handleNewline(): finished. current stack=[0]
+handleNewline(): called
+handleNewline(): counted spaces = 4
+handleNewline(): blockExpected -> push 4 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 8
+handleNewline(): blockExpected -> push 8 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 12
+handleNewline(): blockExpected -> push 12 and emit BLOCKSTART
+handleNewline(): called
+handleNewline(): counted spaces = 0
+handleNewline(): blank line or EOF after newline -> return
+nextToken(): EOF encountered, closing remaining blocks
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): emitted BLOCKEND at EOF
+nextToken(): EOF encountered, closing remaining blocks
