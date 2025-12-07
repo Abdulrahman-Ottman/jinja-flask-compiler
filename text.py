@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 
 app = Flask(__name__)
 
+
 # Serve images folder
 @app.route("/images/<path:filename>")
 def images(filename):

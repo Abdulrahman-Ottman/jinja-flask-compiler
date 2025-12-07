@@ -24,20 +24,18 @@ decorator
 
 // Compound statementements
 functionDef
-    : DEF NAME LPAREN parameters? RPAREN COLON suite
+    : DEF NAME LPAREN (NAME (COMMA NAME)*)? RPAREN COLON  BLOCKSTART statement* BLOCKEND
     ;
 
 forstatement
-    : FOR NAME IN expr COLON suite
+    : FOR NAME IN expr COLON  BLOCKSTART statement* BLOCKEND
     ;
 
 ifstatement
-    : IF expr COLON suite
+    : IF expr COLON  BLOCKSTART statement* BLOCKEND
     ;
 
-suite
-    : BLOCKSTART statement* BLOCKEND
-    ;
+
 
 
 // Import
@@ -49,20 +47,11 @@ importList  : NAME (COMMA NAME)* ;
 assignment  : expr ASSIGN expr ;
 returnStmt  : RETURN expr? ;
 
-// Parameters
-parameters
-    : parameter (COMMA parameter)* COMMA?
-    ;
-
-parameter
-    : NAME
-    ;
-
 // Expressions
 expr
     : expr DOT NAME                     # Attribute
     | expr LBRACK expr RBRACK           # Subscript
-    | expr LPAREN arguments? RPAREN     # FunctionCall
+    |expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
     | expr STAR expr                    # Multiplication
     | expr SLASH expr                   # Division
     | expr PLUS expr                    # Addition
@@ -79,19 +68,6 @@ expr
     | LPAREN expr RPAREN                # Parens
     ;
 
-
-
-// Call arguments (positional + keyword)
-arguments
-    : arg (COMMA arg)* COMMA?
-    ;
-
-arg
-    : expr
-    | NAME ASSIGN expr
-    ;
-
 // Collections
 listExpr    : LBRACK (expr (COMMA expr)*)? RBRACK ;
-dictionary  : LBRACE (pair (COMMA pair)*)? RBRACE ;
-pair        : STRING COLON expr ;
+dictionary  : LBRACE (STRING COLON expr (COMMA STRING COLON expr)*)? RBRACE ;
