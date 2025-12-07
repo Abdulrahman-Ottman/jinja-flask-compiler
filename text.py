@@ -34,7 +34,6 @@ products = [
 
 # Home page – list products
 @app.route("/")
-
 def home():
     return render_template("index.html", products=products)
 
