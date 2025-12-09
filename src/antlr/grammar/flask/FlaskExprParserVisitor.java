@@ -162,13 +162,6 @@ public interface FlaskExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVar(FlaskExprParser.VarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Parens}
-	 * labeled alternative in {@link FlaskExprParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParens(FlaskExprParser.ParensContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code FalseLit}
 	 * labeled alternative in {@link FlaskExprParser#expr}.
 	 * @param ctx the parse tree

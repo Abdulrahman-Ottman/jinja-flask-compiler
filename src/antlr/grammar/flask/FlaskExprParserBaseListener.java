@@ -293,18 +293,6 @@ public class FlaskExprParserBaseListener implements FlaskExprParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParens(FlaskExprParser.ParensContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParens(FlaskExprParser.ParensContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFalseLit(FlaskExprParser.FalseLitContext ctx) { }
 	/**
 	 * {@inheritDoc}

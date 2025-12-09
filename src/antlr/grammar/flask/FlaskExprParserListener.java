@@ -264,18 +264,6 @@ public interface FlaskExprParserListener extends ParseTreeListener {
 	 */
 	void exitVar(FlaskExprParser.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Parens}
-	 * labeled alternative in {@link FlaskExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterParens(FlaskExprParser.ParensContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Parens}
-	 * labeled alternative in {@link FlaskExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitParens(FlaskExprParser.ParensContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code FalseLit}
 	 * labeled alternative in {@link FlaskExprParser#expr}.
 	 * @param ctx the parse tree
