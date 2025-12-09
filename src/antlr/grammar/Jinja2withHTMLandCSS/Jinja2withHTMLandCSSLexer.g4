@@ -1,0 +1,72 @@
+lexer grammar Jinja2withHTMLandCSSLexer;
+
+WS                : [ \n\t\r]+ -> skip;
+JINJA_COMMENT     : '{#' .*? '#}' -> skip ;
+
+DOCTYPE_TAG : 'DOCTYPE';
+HTML_TAG    : 'html';
+HEAD_TAG    : 'head';
+BODY_TAG    : 'body';
+META_TAG    : 'meta';
+TITLE_TAG   : 'title';
+LINK_TAG    : 'link';
+DIV_TAG       : 'div';
+A_TAG         : 'a';
+P_TAG         : 'p';
+H1_TAG        : 'h1';
+H2_TAG        : 'h2';
+H3_TAG        : 'h3';
+H4_TAG        : 'h4';
+H5_TAG        : 'h5';
+H6_TAG        : 'h6';
+IMG_TAG       : 'img';
+FORM_TAG      : 'form';
+INPUT_TAG     : 'input';
+LABEL_TAG     : 'label';
+BUTTON_TAG    : 'button';
+TEXTAREA_TAG  : 'textarea';
+SPAN_TAG      : 'span';
+UL_TAG        : 'ul';
+LI_TAG        : 'li';
+
+
+CHARSET_ATT     : 'charset';
+STYLE_ATT           : 'style';
+ALT_ATT         : 'alt';
+HREF_ATT        : 'href';
+SRC_ATT         : 'src';
+REL_ATT         : 'rel';
+CLASS_ATT       : 'class';
+METHOD_ATT      : 'method';
+TYPE_ATT        : 'type';
+NAME_ATT        : 'name';
+STEP_ATT        : 'step';
+REQUIRED_ATT    : 'required';
+
+LCURLY            : '{';
+RCURLY            : '}';
+BLOCK_START   : '{%';
+BLOCK_END     : '%}';
+ASSIGN            : '=';
+NOT               : '!';
+OPEN_TAG          : '<';
+OPEN_TAG_SLASH    : '</';
+CLOSE_TAG         : '>';
+SELF_CLOSD         :'/>';
+COLON             : ':';
+LPAREN            : '(';
+RPAREN            : ')';
+DOT              : '.';
+PLUS             : '+';
+MINUS            : '-';
+STAR             : '*';
+DIVISION         : '/';
+PERCENT          : '%' ;
+
+FOR              : 'for';
+END_FOR          : 'endfor';
+IN               : 'in';
+STRING           : '"' .*? '"' | '\'' .*? '\'';
+NUMBER           : ('-' | '+')? [0-9]+ ('.' [0-9]+)? ;
+BOOL             : 'true' | 'false' ;
+IDDEFINER        : [a-zA-Z_$][-a-zA-Z0-9_$]*;
