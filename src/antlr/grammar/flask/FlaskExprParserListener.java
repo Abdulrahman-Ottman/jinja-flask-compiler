@@ -252,6 +252,18 @@ public interface FlaskExprParserListener extends ParseTreeListener {
 	 */
 	void exitAttribute(FlaskExprParser.AttributeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link FlaskExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterParens(FlaskExprParser.ParensContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link FlaskExprParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitParens(FlaskExprParser.ParensContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link FlaskExprParser#expr}.
 	 * @param ctx the parse tree
@@ -407,24 +419,4 @@ public interface FlaskExprParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionCall(FlaskExprParser.FunctionCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link FlaskExprParser#listExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterListExpr(FlaskExprParser.ListExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link FlaskExprParser#listExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitListExpr(FlaskExprParser.ListExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link FlaskExprParser#dictionary}.
-	 * @param ctx the parse tree
-	 */
-	void enterDictionary(FlaskExprParser.DictionaryContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link FlaskExprParser#dictionary}.
-	 * @param ctx the parse tree
-	 */
-	void exitDictionary(FlaskExprParser.DictionaryContext ctx);
 }

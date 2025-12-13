@@ -17,10 +17,18 @@ public class Literal extends Expression {
     public boolean isString() { return value instanceof String; }
     public boolean isNumber() { return value instanceof Number; }
 
+
+
+    public static final Literal TRUE  = new Literal(Boolean.TRUE);
+    public static final Literal FALSE = new Literal(Boolean.FALSE);
+    public static final Literal NONE  = new Literal(null);
+
     @Override
     public String toString() {
+        if (value == Boolean.TRUE) return "True";
+        if (value == Boolean.FALSE) return "False";
         if (value == null) return "None";
-        if (value instanceof String) return "\"" + value + "\"";
+        if (value instanceof String s) return "\"" + s.replace("\"", "\\\"") + "\"";
         return String.valueOf(value);
     }
 

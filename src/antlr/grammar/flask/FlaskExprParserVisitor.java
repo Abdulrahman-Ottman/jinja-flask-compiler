@@ -155,6 +155,13 @@ public interface FlaskExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttribute(FlaskExprParser.AttributeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link FlaskExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParens(FlaskExprParser.ParensContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link FlaskExprParser#expr}.
 	 * @param ctx the parse tree
@@ -245,16 +252,4 @@ public interface FlaskExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionCall(FlaskExprParser.FunctionCallContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link FlaskExprParser#listExpr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitListExpr(FlaskExprParser.ListExprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link FlaskExprParser#dictionary}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDictionary(FlaskExprParser.DictionaryContext ctx);
 }
