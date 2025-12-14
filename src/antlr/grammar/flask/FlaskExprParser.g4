@@ -49,24 +49,21 @@ returnStmt  : RETURN expr? ;
 
 // Expressions
 expr
-    : expr DOT NAME                     # Attribute
+    : LPAREN expr RPAREN               # Parens
     | expr LBRACK expr RBRACK           # Subscript
-    | expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
     | expr STAR expr                    # Multiplication
     | expr SLASH expr                   # Division
     | expr PLUS expr                    # Addition
     | expr MINUS expr                   # Subtraction
     | expr (GT | LT | GTE | LTE | EQ | NEQ) expr   # Comparison
+    | expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
+    |expr DOT NAME                     # Attribute
     | NAME                              # Var
     | NUMBER                            # Number
     | STRING                            # String
     | TRUE                              # TrueLit
     | FALSE                             # FalseLit
     | NONE                              # NoneLit
-    | listExpr                          # List
-    | dictionary                        # Dict
+    | LBRACK (expr (COMMA expr)*)? RBRACK    # List
+    | LBRACE (STRING COLON expr (COMMA STRING COLON expr)*)? RBRACE                         # Dict
     ;
-
-// Collections
-listExpr    : LBRACK (expr (COMMA expr)*)? RBRACK ;
-dictionary  : LBRACE (STRING COLON expr (COMMA STRING COLON expr)*)? RBRACE ;
