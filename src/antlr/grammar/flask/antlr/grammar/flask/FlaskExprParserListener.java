@@ -1,5 +1,6 @@
 // Generated from C:/Projects/CompilerProject/src/antlr/grammar/flask/FlaskExprParser.g4 by ANTLR 4.13.2
-package antlr.grammar.flask;
+package antlr.grammar.flask.antlr.grammar.flask;
+import antlr.grammar.flask.antlr.grammar.flask.FlaskExprParser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -439,4 +440,5 @@ public interface FlaskExprParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDictionary(FlaskExprParser.DictionaryContext ctx);
+
 }

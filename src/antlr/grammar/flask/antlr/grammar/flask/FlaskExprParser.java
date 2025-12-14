@@ -1,13 +1,11 @@
 // Generated from C:/Projects/CompilerProject/src/antlr/grammar/flask/FlaskExprParser.g4 by ANTLR 4.13.2
-package antlr.grammar.flask;
+package antlr.grammar.flask.antlr.grammar.flask;
+import antlr.grammar.flask.FlaskExprParserVisitor;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class FlaskExprParser extends Parser {
@@ -123,7 +121,7 @@ public class FlaskExprParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof FlaskExprParserListener ) ((FlaskExprParserListener)listener).enterProgram(this);
+			if ( listener instanceof FlaskExprParserListener) ((FlaskExprParserListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
@@ -131,7 +129,7 @@ public class FlaskExprParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FlaskExprParserVisitor ) return ((FlaskExprParserVisitor<? extends T>)visitor).visitProgram(this);
+			if ( visitor instanceof FlaskExprParserVisitor) return ((FlaskExprParserVisitor<? extends T>)visitor).visitProgram(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -640,7 +638,7 @@ public class FlaskExprParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class ForstatementContext extends ParserRuleContext {
 		public TerminalNode FOR() { return getToken(FlaskExprParser.FOR, 0); }
-		public TerminalNode NAME() { return getToken(FlaskExprParser.NAME, 0); }
+		public TerminalNode NAME(int i) { return getToken(FlaskExprParser.NAME, 0); }
 		public TerminalNode IN() { return getToken(FlaskExprParser.IN, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);

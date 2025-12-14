@@ -1,5 +1,7 @@
+import FlaskStatement.Statement;
 import antlr.grammar.flask.FlaskExprLexer;
-import antlr.grammar.flask.FlaskExprParser;
+import antlr.grammar.flask.antlr.grammar.flask.ASTStatementsBuilderVisitor;
+import antlr.grammar.flask.antlr.grammar.flask.FlaskExprParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.nio.file.Files;
@@ -19,6 +21,11 @@ public class Main {
 
         // Parse using the top rule
         ParseTree tree = parser.program();
+
+        ASTStatementsBuilderVisitor visitor = new ASTStatementsBuilderVisitor();
+        Object ast =  visitor.visitProgram((FlaskExprParser.ProgramContext) tree);
+        System.out.println(ast);
+
 
 // GUI viewer
         org.antlr.v4.gui.Trees.inspect(tree, parser);

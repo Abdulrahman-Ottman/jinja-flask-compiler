@@ -1,5 +1,6 @@
 // Generated from C:/Projects/CompilerProject/src/antlr/grammar/flask/FlaskExprParser.g4 by ANTLR 4.13.2
 package antlr.grammar.flask;
+import antlr.grammar.flask.antlr.grammar.flask.FlaskExprParser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -264,4 +265,5 @@ public interface FlaskExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDictionary(FlaskExprParser.DictionaryContext ctx);
+
 }
