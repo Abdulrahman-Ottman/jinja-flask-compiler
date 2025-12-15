@@ -1,6 +1,6 @@
 package FlaskStatement;
 
-public class Decorator extends Expression{
+public class Decorator extends Statement{
     public  Expression expr;   // the expression after @ (e.g. @cache, @app.route("/"))
 
     public Decorator(Expression expr) {
