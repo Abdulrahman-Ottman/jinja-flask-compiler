@@ -3,6 +3,7 @@ package antlr.grammar.flask;
 import FlaskStatement.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -115,23 +116,50 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
     @Override
     public Expression visitFunctionCall(FlaskExprParser.FunctionCallContext ctx) {
         Expression called = visit(ctx.expr(0));
-
         requireParenthesesIfBinOp(called, ctx, "function call");
 
         List<Expression> args = new ArrayList<>();
         Map<String, Expression> kwargs = new LinkedHashMap<>();
 
-        for (int i = 2; i < ctx.getChildCount() - 1; i += 2) {
-            ParseTree node = ctx.getChild(i);
-            if (node instanceof FlaskExprParser.ExprContext e) {
-                args.add(visit(e));
-            } else if (node.getChildCount() == 3
-                    && "=".equals(node.getChild(1).getText())
-                    && node.getChild(2) instanceof FlaskExprParser.ExprContext v) {
-                String name = node.getChild(0).getText();
-                kwargs.put(name, visit(v));
+        // Start after: expr(0)  LPAREN  ...
+        // Index 0: expr(0)  (the function being called)
+        // Index 1: LPAREN
+        // Index 2+: arguments and commas (if any)
+        // Last:    RPAREN
+        int i = 2; // position after LPAREN
+        int childCount = ctx.getChildCount();
+
+        while (i < childCount - 1) { // stop before RPAREN
+            ParseTree child = ctx.getChild(i);
+
+            if (child.getText().equals(",")) {
+                i++;
+                continue;
+            }
+
+            // Case 1: Keyword argument → NAME = expr
+            if (child instanceof TerminalNode nameNode
+                    && nameNode.getSymbol().getType() == FlaskExprParser.NAME
+                    && ctx.getChild(i + 1).getText().equals("=")
+                    && ctx.getChild(i + 2) instanceof FlaskExprParser.ExprContext valueCtx) {
+
+                String kwName = nameNode.getText();
+                Expression value = visit(valueCtx);
+                kwargs.put(kwName, value);
+
+                i += 3; // skip NAME, =, expr
+            }
+            // Case 2: Positional argument → expr
+            else if (child instanceof FlaskExprParser.ExprContext exprCtx) {
+                args.add(visit(exprCtx));
+                i++;
+            }
+            else {
+                // Unexpected token — skip to avoid infinite loop
+                i++;
             }
         }
+
         return new FunctionCall(called, args, kwargs);
     }
 
