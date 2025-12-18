@@ -1,17 +1,22 @@
 package ASTJinja2withHTMLandCSS;
 
 import ASTJinja2withHTMLandCSS.*;
+import ASTJinja2withHTMLandCSS.CSS.*;
+import ASTJinja2withHTMLandCSS.CSS.Atoms.*;
+import ASTJinja2withHTMLandCSS.CSS.Factory.CSSPropertyFactory;
+import ASTJinja2withHTMLandCSS.CSS.Selectors.*;
 import ASTJinja2withHTMLandCSS.Jinja2.*;
 import ASTJinja2withHTMLandCSS.Jinja2.Factory.*;
-import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParser;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParserBaseVisitor;
+import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParser;
 
 public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitProg(Jinja2withHTMLandCSSParser.ProgContext ctx) {
-        ASTNode root = visit(ctx.jinja2Prog());
+        ASTNode root = (ctx.jinja2Prog() != null) ? visit(ctx.jinja2Prog()) : visit(ctx.cssProg());
         return new ProgramNode(ctx.start.getLine(), root);
     }
+
 
     @Override
     public ASTNode visitJinja2Prog(Jinja2withHTMLandCSSParser.Jinja2ProgContext ctx) {
@@ -156,6 +161,112 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
             block.addContent(visit(c));
 
         return block;
+    }
+
+    // ===== CSS =====
+
+    @Override
+    public ASTNode visitCssProg(Jinja2withHTMLandCSSParser.CssProgContext ctx) {
+        CSSProgNode prog = new CSSProgNode(ctx.start.getLine());
+        for (var r : ctx.cssRule())
+            prog.addRule((CSSRuleNode) visit(r));
+        return prog;
+    }
+
+    @Override
+    public ASTNode visitCssRule(Jinja2withHTMLandCSSParser.CssRuleContext ctx) {
+        SelectorListNode selectors =
+                (SelectorListNode) visit(ctx.cssSelectorList());
+
+        CSSRuleNode rule = new CSSRuleNode(ctx.start.getLine(), selectors);
+
+        for (var d : ctx.cssDeclaration())
+            rule.addDeclaration((CSSDeclarationNode) visit(d));
+
+        return rule;
+    }
+
+    @Override
+    public ASTNode visitCssSelectorList(Jinja2withHTMLandCSSParser.CssSelectorListContext ctx) {
+        SelectorListNode list = new SelectorListNode(ctx.start.getLine());
+        for (var s : ctx.cssSelector())
+            list.addSelector((SelectorChainNode) visit(s));
+        return list;
+    }
+
+    @Override
+    public ASTNode visitCssSelector(Jinja2withHTMLandCSSParser.CssSelectorContext ctx) {
+        SelectorChainNode chain = new SelectorChainNode(ctx.start.getLine());
+
+        for (var s : ctx.simpleSelector())
+            chain.addPart((CSSSelectorNode) visit(s));
+
+        if (ctx.pseudoClass() != null)
+            chain.setPseudo(new PseudoClassNode(
+                    ctx.pseudoClass().start.getLine(),
+                    ctx.pseudoClass().getText()));
+
+        return chain;
+    }
+
+    @Override
+    public ASTNode visitElementSelector(Jinja2withHTMLandCSSParser.ElementSelectorContext ctx) {
+        CSSNameNode name = new CSSNameNode(ctx.start.getLine(), ctx.className().getText());
+        return new ElementSelectorNode(ctx.start.getLine(), name);
+    }
+
+    @Override
+    public ASTNode visitClassSelector(Jinja2withHTMLandCSSParser.ClassSelectorContext ctx) {
+        CSSNameNode name = new CSSNameNode(ctx.start.getLine(), ctx.className().getText());
+        return new ClassSelectorNode(ctx.start.getLine(), name);
+    }
+
+    @Override
+    public ASTNode visitCustomElementSelector(Jinja2withHTMLandCSSParser.CustomElementSelectorContext ctx) {
+        return new CustomElementSelectorNode(
+                ctx.start.getLine(),
+                ctx.IDDEFINER().getText());
+    }
+
+    @Override
+    public ASTNode visitIdSelector(Jinja2withHTMLandCSSParser.IdSelectorContext ctx) {
+        return new IdSelectorNode(
+                ctx.start.getLine(),
+                ctx.IDDEFINER().getText());
+    }
+
+    @Override
+    public ASTNode visitCssDeclaration(Jinja2withHTMLandCSSParser.CssDeclarationContext ctx) {
+        CSSPropertyNameNode prop =
+                CSSPropertyFactory.create(ctx.start.getLine(), ctx.cssProperty().getText());
+
+        CSSValueNode value = (CSSValueNode) visit(ctx.cssValue());
+
+        return new CSSDeclarationNode(ctx.start.getLine(), prop, value);
+    }
+
+    @Override
+    public ASTNode visitCssValue(Jinja2withHTMLandCSSParser.CssValueContext ctx) {
+        CSSValueNode v = new CSSValueNode(ctx.start.getLine());
+        for (var a : ctx.cssValueAtom())
+            v.addAtom((CSSValueAtomNode) visit(a));
+        return v;
+    }
+
+    @Override
+    public ASTNode visitCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx) {
+        int line = ctx.start.getLine();
+
+        if (ctx.NUMBER() != null)
+            return new NumberAtomNode(line, ctx.getText());
+
+        if (ctx.CSS_COLOR() != null)
+            return new ColorAtomNode(line, ctx.getText());
+
+        if (ctx.IDDEFINER() != null)
+            return new IdentAtomNode(line, ctx.getText());
+
+        return new SymbolAtomNode(line, ctx.getText());
     }
 
 

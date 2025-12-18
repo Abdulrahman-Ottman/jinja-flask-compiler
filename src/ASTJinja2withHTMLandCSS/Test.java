@@ -16,8 +16,8 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         String source = "Testing Project/FlaskTestingApp/templates/add_product.html";
-        CharStream cs = fromFileName(source);
-
+        String souCss = "Testing Project/FlaskTestingApp/static/style.css";
+        CharStream cs = fromFileName(souCss);
         Jinja2withHTMLandCSSLexer lexer = new Jinja2withHTMLandCSSLexer(cs);
         CommonTokenStream token = new CommonTokenStream(lexer);
         Jinja2withHTMLandCSSParser parser = new Jinja2withHTMLandCSSParser(token);

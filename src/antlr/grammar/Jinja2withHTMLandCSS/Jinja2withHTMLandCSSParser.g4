@@ -4,6 +4,7 @@ options { tokenVocab=Jinja2withHTMLandCSSLexer; }
 
 prog
     : jinja2Prog
+    | cssProg
  ;
 
 jinja2Prog
@@ -107,3 +108,98 @@ block
       elementContent*
       BLOCK_START END_FOR BLOCK_END
     ;
+
+
+// CSS
+// ================= CSS =================
+
+cssProg
+    : cssRule+ EOF
+    ;
+
+cssRule
+    : cssSelectorList LCURLY cssDeclaration* RCURLY
+    ;
+
+cssSelectorList
+    : cssSelector (COMMA cssSelector)*
+    ;
+
+cssSelector
+    : simpleSelector (simpleSelector)* (COLON pseudoClass)?
+    ;
+
+
+cssElementName
+    : tagName
+    | voidTagName
+    ;
+
+className
+    : IDDEFINER
+    | cssElementName
+    ;
+
+simpleSelector
+    : className           #ElementSelector
+    | IDDEFINER           #CustomElementSelector
+    | DOT className       #ClassSelector
+    | HASH IDDEFINER      #IdSelector
+    ;
+
+
+pseudoClass
+    : PSEUDO_HOVER
+    ;
+
+
+cssDeclaration
+    : cssProperty COLON cssValue SEMICOLON
+    ;
+
+cssProperty
+    : FONT_FAMILY
+    | BACKGROUND
+    | BACKGROUND_COLOR
+    | COLOR_PROP
+    | PADDING
+    | PADDING_TOP
+    | PADDING_BOTTOM
+    | MARGIN
+    | MARGIN_TOP
+    | MARGIN_BOTTOM
+    | WIDTH
+    | HEIGHT
+    | DISPLAY
+    | GAP
+    | FLEX_WRAP
+    | JUSTIFY_CONTENT
+    | TEXT_ALIGN
+    | FONT_SIZE
+    | FONT_WEIGHT
+    | BORDER
+    | BORDER_RADIUS
+    | BOX_SHADOW
+    | TEXT_DECORATION
+    | CURSOR
+    | TRANSFORM
+    | FLEX_DIRECTION
+    ;
+
+
+cssValue
+    : cssValueAtom+
+    ;
+
+cssValueAtom
+    : NUMBER
+    | CSS_UNIT
+    | CSS_COLOR
+    | IDDEFINER
+    | COMMA
+    | LPAREN
+    | RPAREN
+    | MINUS
+    ;
+
+
