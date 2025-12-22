@@ -19,6 +19,7 @@ public class SymbolsTable {
 
     public void addSymbol(String key, Map<String, Object> value) {
         symbols.put(key, value);
+
     }
 
     public Map<String, Object> getSymbol(String key) {
