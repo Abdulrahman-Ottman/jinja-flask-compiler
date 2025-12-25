@@ -50,13 +50,13 @@ returnStmt  : RETURN expr? ;
 // Expressions
 expr
     : LPAREN expr RPAREN               # Parens
+    | expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
     | expr LBRACK expr RBRACK           # Subscript
     | expr STAR expr                    # Multiplication
     | expr SLASH expr                   # Division
     | expr PLUS expr                    # Addition
     | expr MINUS expr                   # Subtraction
     | expr (GT | LT | GTE | LTE | EQ | NEQ) expr   # Comparison
-    | expr LPAREN ( (expr | NAME ASSIGN expr) (COMMA (expr | NAME ASSIGN expr))*)? RPAREN # FunctionCall
     |expr DOT NAME                     # Attribute
     | NAME                              # Var
     | NUMBER                            # Number

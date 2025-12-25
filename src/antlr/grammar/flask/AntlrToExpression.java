@@ -1,17 +1,36 @@
 package antlr.grammar.flask;
 
 import FlaskStatement.*;
+import SymbolsTable.SymbolsTable;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
+    SymbolsTable symbolsTable = SymbolsTable.getFlaskInstance();
+    ArrayList<String> builtInFunctions = new ArrayList<>();
+    ArrayList<String> SendDataFunctions = new ArrayList<>();
+    public AntlrToExpression(){
+        builtInFunctions.addAll(Arrays.asList(
+                "Flask",
+                "render_template",
+                "request",
+                "redirect",
+                "url_for",
+                "send_from_directory",
+                "route",
+                "float",
+                "append"
+        ));
+
+        SendDataFunctions.addAll(Arrays.asList(
+                "render_template"
+        ));
+    }
     @Override
     public Expression visitVar(FlaskExprParser.VarContext ctx) {
         return new Name(ctx.NAME().getText());
@@ -79,6 +98,30 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
     public Expression visitMultiplication(FlaskExprParser.MultiplicationContext ctx) {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
+
+        if (right instanceof Name) {
+            String varName = ((Name) right).id;
+            if (symbolsTable.getFlaskSymbol(varName) == null) {
+                throw new RuntimeException("The variable '" + varName + "' has not been declared");
+            }
+        } else if(right instanceof FunctionCall){
+            String varName = ((FunctionCall) right).called.toString();
+            if (symbolsTable.getFlaskSymbol(varName) == null) {
+                throw new RuntimeException("The function '" + varName + "' has not been declared");
+            }
+        }
+
+        if (left instanceof Name) {
+            String varName = ((Name) left).id;
+            if (symbolsTable.getFlaskSymbol(varName) == null) {
+                throw new RuntimeException("The variable '" + varName + "' has not been declared");
+            }
+        } else if(left instanceof FunctionCall){
+            String varName = ((FunctionCall) left).called.toString();
+            if (symbolsTable.getFlaskSymbol(varName) == null) {
+                throw new RuntimeException("The function '" + varName + "' has not been declared");
+            }
+        }
         return binOp(left, right, "*");
     }
 
@@ -116,16 +159,24 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
     @Override
     public Expression visitFunctionCall(FlaskExprParser.FunctionCallContext ctx) {
         Expression called = visit(ctx.expr(0));
+        String functionName = called.toString();
+        if (called instanceof Attribute){
+            functionName = ((Attribute) called).attribute;
+        }
+
+        if (!((symbolsTable.getFlaskSymbol(functionName)!=null)&&(symbolsTable.getFlaskSymbol(functionName).get("type")=="function"))&&!builtInFunctions.contains(functionName)){
+            throw  new RuntimeException("function " + functionName + " has not be declared");
+        }
+
+
+
         requireParenthesesIfBinOp(called, ctx, "function call");
 
         List<Expression> args = new ArrayList<>();
         Map<String, Expression> kwargs = new LinkedHashMap<>();
 
-        // Start after: expr(0)  LPAREN  ...
-        // Index 0: expr(0)  (the function being called)
-        // Index 1: LPAREN
-        // Index 2+: arguments and commas (if any)
-        // Last:    RPAREN
+
+
         int i = 2; // position after LPAREN
         int childCount = ctx.getChildCount();
 
@@ -158,6 +209,27 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
                 // Unexpected token — skip to avoid infinite loop
                 i++;
             }
+        }
+
+        //handiling data sent to html:
+        if (SendDataFunctions.contains(functionName)) {
+            SymbolsTable htmlST = SymbolsTable.getHtmlInstance();
+            Map<String,Object> sentVars = new LinkedHashMap<>();
+
+            for (Map.Entry<String, Expression> entry : kwargs.entrySet()) {
+                String varName = entry.getKey();
+                Expression value = entry.getValue();
+                Object data =   symbolsTable.getFlaskSymbol(value.toString()).get("value");
+                sentVars.put(varName,data);
+            }
+            Map<String,Object> mapVars = htmlST.getHtmlSymbol("data_sent");
+            if (mapVars!=null){
+                mapVars.putAll(sentVars);
+            }else{
+                htmlST.addHtmlSymbol("data_sent",sentVars);
+            }
+
+
         }
 
         return new FunctionCall(called, args, kwargs);

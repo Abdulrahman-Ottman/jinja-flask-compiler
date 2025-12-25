@@ -8,7 +8,7 @@ import java.util.*;
 
 public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<Statement>{
     AntlrToExpression expressionVisitor = new AntlrToExpression();
-    SymbolsTable sym = SymbolsTable.getInstance();
+    SymbolsTable sym = SymbolsTable.getFlaskInstance();
     public static Stack<String> scope = new Stack<>();
 
     int forCounter = 0;
@@ -39,12 +39,11 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
         Expression left =  expressionVisitor.visit(ctx.expr(0));
         Expression right =  expressionVisitor.visit(ctx.expr(1));
-
         //if the sym already contains the left, it will update the value automatically
         Map<String,Object> values = new LinkedHashMap<>();
         values.put("value",right);
         values.put("scope",scope.peek());
-        sym.addSymbol(scope.peek()+"."+left.toString(),values);
+        sym.addFlaskSymbol(scope.peek()+"."+left.toString(),values);
 
         return new Assignment(left, right);
     }
@@ -107,8 +106,10 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
         }
 
         Map<String,Object> values = new LinkedHashMap<>();
+        values.put("name",name);
+        values.put("type","function");
         values.put("parameters",parameters);
-        sym.addSymbol(scope.peek()+"."+name,values);
+        sym.addFlaskSymbol(scope.peek()+"."+name,values);
 
 
 
