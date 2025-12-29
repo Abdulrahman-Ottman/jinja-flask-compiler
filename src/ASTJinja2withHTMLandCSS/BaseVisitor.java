@@ -11,17 +11,22 @@ import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParserBaseVisi
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParser;
 
 public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> {
+
     @Override
-    public ASTNode visitProg(Jinja2withHTMLandCSSParser.ProgContext ctx) {
-        ASTNode root = (ctx.jinja2Prog() != null) ? visit(ctx.jinja2Prog()) : visit(ctx.cssProg());
+    public ASTNode visitJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx) {
+        ASTNode root = visit(ctx.jinja2Prog());
         return new ProgramNode(ctx.start.getLine(), root);
     }
 
+    @Override
+    public ASTNode visitCss(Jinja2withHTMLandCSSParser.CssContext ctx) {
+        ASTNode root = visit(ctx.cssProg());
+        return new ProgramNode(ctx.start.getLine(), root);
+    }
 
     @Override
     public ASTNode visitJinja2Prog(Jinja2withHTMLandCSSParser.Jinja2ProgContext ctx) {
         Jinja2ProgNode node = new Jinja2ProgNode(ctx.start.getLine());
-
         if (ctx.doctype() != null)
             node.setDoctype((DoctypeNode) visit(ctx.doctype()));
 
@@ -37,19 +42,13 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
     }
 
     @Override
-    public ASTNode visitHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx) {
-        if (ctx.openCloseTag() != null)
-            return visit(ctx.openCloseTag());
-        return visit(ctx.selfClosingTag());
-    }
-
-    @Override
     public ASTNode visitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx) {
         StartTagNode start = (StartTagNode) visit(ctx.startTag());
         OpenCloseTagNode node = new OpenCloseTagNode(ctx.start.getLine(), start);
 
-        for (var c : ctx.elementContent())
+        for (var c : ctx.elementContent()) {
             node.addContent(visit(c));
+        }
 
         node.setEndTag((EndTagNode) visit(ctx.endTag()));
         return node;
@@ -60,8 +59,9 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         VoidTagNameNode vtag = (VoidTagNameNode) visit(ctx.voidTagName());
         SelfClosingTagNode node = new SelfClosingTagNode(ctx.start.getLine(), vtag);
 
-        for (var att : ctx.attribute())
+        for (var att : ctx.attribute()) {
             node.addAttribute((AttributeNode) visit(att));
+        }
 
         return node;
     }
@@ -95,15 +95,18 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         return TagFactory.createVoidTag(ctx.start.getLine(), name);
     }
 
+    // Labeled Alternatives for attribute
     @Override
-    public ASTNode visitAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx) {
+    public ASTNode visitFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx) {
         AttributeNameNode name = (AttributeNameNode) visit(ctx.attributeName());
-        AttributeValueNode value = null;
-
-        if (ctx.attributeValue() != null)
-            value = (AttributeValueNode) visit(ctx.attributeValue());
-
+        AttributeValueNode value = (AttributeValueNode) visit(ctx.attributeValue());
         return new AttributeNode(ctx.start.getLine(), name, value);
+    }
+
+    @Override
+    public ASTNode visitBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx) {
+        AttributeNameNode name = (AttributeNameNode) visit(ctx.attributeName());
+        return new AttributeNode(ctx.start.getLine(), name, null);
     }
 
     @Override
@@ -119,11 +122,24 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         return new AttributeValueNode(ctx.start.getLine(), val);
     }
 
+    // Labeled Alternatives for elementContent
     @Override
-    public ASTNode visitElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx) {
-        if (ctx.statement() != null) return visit(ctx.statement());
-        if (ctx.htmlelement() != null) return visit(ctx.htmlelement());
-        if (ctx.expression() != null) return visit(ctx.expression());
+    public ASTNode visitTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx) {
+        return visit(ctx.statement());
+    }
+
+    @Override
+    public ASTNode visitNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx) {
+        return visit(ctx.htmlelement());
+    }
+
+    @Override
+    public ASTNode visitJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx) {
+        return visit(ctx.expression());
+    }
+
+    @Override
+    public ASTNode visitJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx) {
         return visit(ctx.block());
     }
 
@@ -141,11 +157,9 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
     @Override
     public ASTNode visitMemberAccess(Jinja2withHTMLandCSSParser.MemberAccessContext ctx) {
         MemberAccessNode node = new MemberAccessNode(ctx.start.getLine());
-        node.addPart(ctx.IDDEFINER(0).getText());
-
-        for (int i = 1; i < ctx.IDDEFINER().size(); i++)
-            node.addPart(ctx.IDDEFINER(i).getText());
-
+        for (var id : ctx.IDDEFINER()) {
+            node.addPart(id.getText());
+        }
         return node;
     }
 
@@ -175,9 +189,7 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitCssRule(Jinja2withHTMLandCSSParser.CssRuleContext ctx) {
-        SelectorListNode selectors =
-                (SelectorListNode) visit(ctx.cssSelectorList());
-
+        SelectorListNode selectors = (SelectorListNode) visit(ctx.cssSelectorList());
         CSSRuleNode rule = new CSSRuleNode(ctx.start.getLine(), selectors);
 
         for (var d : ctx.cssDeclaration())
@@ -197,7 +209,6 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
     @Override
     public ASTNode visitCssSelector(Jinja2withHTMLandCSSParser.CssSelectorContext ctx) {
         SelectorChainNode chain = new SelectorChainNode(ctx.start.getLine());
-
         for (var s : ctx.simpleSelector())
             chain.addPart((CSSSelectorNode) visit(s));
 
@@ -223,25 +234,18 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitCustomElementSelector(Jinja2withHTMLandCSSParser.CustomElementSelectorContext ctx) {
-        return new CustomElementSelectorNode(
-                ctx.start.getLine(),
-                ctx.IDDEFINER().getText());
+        return new CustomElementSelectorNode(ctx.start.getLine(), ctx.IDDEFINER().getText());
     }
 
     @Override
     public ASTNode visitIdSelector(Jinja2withHTMLandCSSParser.IdSelectorContext ctx) {
-        return new IdSelectorNode(
-                ctx.start.getLine(),
-                ctx.IDDEFINER().getText());
+        return new IdSelectorNode(ctx.start.getLine(), ctx.IDDEFINER().getText());
     }
 
     @Override
     public ASTNode visitCssDeclaration(Jinja2withHTMLandCSSParser.CssDeclarationContext ctx) {
-        CSSPropertyNameNode prop =
-                CSSPropertyFactory.create(ctx.start.getLine(), ctx.cssProperty().getText());
-
+        CSSPropertyNameNode prop = CSSPropertyFactory.create(ctx.start.getLine(), ctx.cssProperty().getText());
         CSSValueNode value = (CSSValueNode) visit(ctx.cssValue());
-
         return new CSSDeclarationNode(ctx.start.getLine(), prop, value);
     }
 
@@ -253,22 +257,44 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         return v;
     }
 
+    // Labeled Alternatives for cssValueAtom
     @Override
-    public ASTNode visitCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx) {
-        int line = ctx.start.getLine();
-
-        if (ctx.NUMBER() != null)
-            return new NumberAtomNode(line, ctx.getText());
-
-        if (ctx.CSS_COLOR() != null)
-            return new ColorAtomNode(line, ctx.getText());
-
-        if (ctx.IDDEFINER() != null)
-            return new IdentAtomNode(line, ctx.getText());
-
-        return new SymbolAtomNode(line, ctx.getText());
+    public ASTNode visitCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx) {
+        return new NumberAtomNode(ctx.start.getLine(), ctx.getText());
     }
 
+    @Override
+    public ASTNode visitCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx) {
+        return new ColorAtomNode(ctx.start.getLine(), ctx.getText());
+    }
 
+    @Override
+    public ASTNode visitCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx) {
+        return new IdentAtomNode(ctx.start.getLine(), ctx.getText());
+    }
+
+    @Override
+    public ASTNode visitCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx) {
+        return new SymbolAtomNode(ctx.start.getLine(), ctx.getText());
+    }
+
+    @Override
+    public ASTNode visitCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx) {
+        return new SymbolAtomNode(ctx.start.getLine(), ctx.getText());
+    }
+
+    @Override
+    public ASTNode visitCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx) {
+        return new SymbolAtomNode(ctx.start.getLine(), ctx.getText());
+    }
+
+    @Override
+    public ASTNode visitCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx) {
+        return new SymbolAtomNode(ctx.start.getLine(), ctx.getText());
+    }
+
+    @Override
+    public ASTNode visitCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx) {
+        return new SymbolAtomNode(ctx.start.getLine(), ctx.getText());
+    }
 }
-

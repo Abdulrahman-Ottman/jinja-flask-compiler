@@ -8,15 +8,29 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#prog}.
+	 * Enter a parse tree produced by the {@code jinja2}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void enterProg(Jinja2withHTMLandCSSParser.ProgContext ctx);
+	void enterJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#prog}.
+	 * Exit a parse tree produced by the {@code jinja2}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void exitProg(Jinja2withHTMLandCSSParser.ProgContext ctx);
+	void exitJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code css}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#prog}.
+	 * @param ctx the parse tree
+	 */
+	void enterCss(Jinja2withHTMLandCSSParser.CssContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code css}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#prog}.
+	 * @param ctx the parse tree
+	 */
+	void exitCss(Jinja2withHTMLandCSSParser.CssContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#jinja2Prog}.
 	 * @param ctx the parse tree
@@ -38,25 +52,29 @@ public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	 */
 	void exitDoctype(Jinja2withHTMLandCSSParser.DoctypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#htmlelement}.
-	 * @param ctx the parse tree
-	 */
-	void enterHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#htmlelement}.
-	 * @param ctx the parse tree
-	 */
-	void exitHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#openCloseTag}.
+	 * Enter a parse tree produced by the {@code openCloseTag}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#htmlelement}.
 	 * @param ctx the parse tree
 	 */
 	void enterOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#openCloseTag}.
+	 * Exit a parse tree produced by the {@code openCloseTag}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#htmlelement}.
 	 * @param ctx the parse tree
 	 */
 	void exitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code selfClosingTag}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#htmlelement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code selfClosingTag}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#htmlelement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#startTag}.
 	 * @param ctx the parse tree
@@ -88,16 +106,6 @@ public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	 */
 	void exitTagName(Jinja2withHTMLandCSSParser.TagNameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#selfClosingTag}.
-	 * @param ctx the parse tree
-	 */
-	void enterSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#selfClosingTag}.
-	 * @param ctx the parse tree
-	 */
-	void exitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#voidTagName}.
 	 * @param ctx the parse tree
 	 */
@@ -108,15 +116,29 @@ public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	 */
 	void exitVoidTagName(Jinja2withHTMLandCSSParser.VoidTagNameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#attribute}.
+	 * Enter a parse tree produced by the {@code fullAttr}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void enterAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx);
+	void enterFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#attribute}.
+	 * Exit a parse tree produced by the {@code fullAttr}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void exitAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx);
+	void exitFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code booleanAttr}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code booleanAttr}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#attributeName}.
 	 * @param ctx the parse tree
@@ -138,15 +160,53 @@ public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	 */
 	void exitAttributeValue(Jinja2withHTMLandCSSParser.AttributeValueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * Enter a parse tree produced by the {@code textContent}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
 	 * @param ctx the parse tree
 	 */
-	void enterElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx);
+	void enterTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * Exit a parse tree produced by the {@code textContent}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
 	 * @param ctx the parse tree
 	 */
-	void exitElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx);
+	void exitTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code nestedElement}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code nestedElement}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code jinjaExpression}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code jinjaExpression}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code jinjaBlock}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code jinjaBlock}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#statement}.
 	 * @param ctx the parse tree
@@ -336,13 +396,99 @@ public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	 */
 	void exitCssValue(Jinja2withHTMLandCSSParser.CssValueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * Enter a parse tree produced by the {@code cssNumber}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
 	 * @param ctx the parse tree
 	 */
-	void enterCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx);
+	void enterCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * Exit a parse tree produced by the {@code cssNumber}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
 	 * @param ctx the parse tree
 	 */
-	void exitCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx);
+	void exitCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssUnit}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssUnit}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssColor}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssColor}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssIdentifier}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssIdentifier}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssComma}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssComma}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssLParen}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssLParen}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssRParen}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssRParen}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cssMinus}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cssMinus}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx);
 }

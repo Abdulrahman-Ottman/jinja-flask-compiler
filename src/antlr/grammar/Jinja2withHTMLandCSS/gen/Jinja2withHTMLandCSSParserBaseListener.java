@@ -17,13 +17,25 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProg(Jinja2withHTMLandCSSParser.ProgContext ctx) { }
+	@Override public void enterJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProg(Jinja2withHTMLandCSSParser.ProgContext ctx) { }
+	@Override public void exitJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCss(Jinja2withHTMLandCSSParser.CssContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCss(Jinja2withHTMLandCSSParser.CssContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -53,18 +65,6 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -72,6 +72,18 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -113,18 +125,6 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterVoidTagName(Jinja2withHTMLandCSSParser.VoidTagNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -137,13 +137,25 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx) { }
+	@Override public void enterFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx) { }
+	@Override public void exitFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -173,13 +185,49 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx) { }
+	@Override public void enterTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx) { }
+	@Override public void exitTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -401,13 +449,97 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx) { }
+	@Override public void enterCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx) { }
+	@Override public void exitCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

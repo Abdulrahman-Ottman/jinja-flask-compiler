@@ -18,7 +18,14 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProg(Jinja2withHTMLandCSSParser.ProgContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCss(Jinja2withHTMLandCSSParser.CssContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -39,14 +46,14 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -74,13 +81,6 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitVoidTagName(Jinja2withHTMLandCSSParser.VoidTagNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -88,7 +88,14 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -109,7 +116,28 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -242,5 +270,54 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx) { return visitChildren(ctx); }
 }

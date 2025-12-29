@@ -15,9 +15,11 @@ import static org.antlr.v4.runtime.CharStreams.fromFileName;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-        String source = "Testing Project/FlaskTestingApp/templates/add_product.html";
+        String t1 = "Testing Project/FlaskTestingApp/templates/add_product.html";
+        String t2 = "Testing Project/FlaskTestingApp/templates/index.html";
+        String t3 = "Testing Project/FlaskTestingApp/templates/product.html";
         String souCss = "Testing Project/FlaskTestingApp/static/style.css";
-        CharStream cs = fromFileName(souCss);
+        CharStream cs = fromFileName(t3);
         Jinja2withHTMLandCSSLexer lexer = new Jinja2withHTMLandCSSLexer(cs);
         CommonTokenStream token = new CommonTokenStream(lexer);
         Jinja2withHTMLandCSSParser parser = new Jinja2withHTMLandCSSParser(token);
@@ -28,7 +30,7 @@ public class Test {
 
         System.out.println("<<<<<< AST >>>>>>");
         root.print("");
-        org.antlr.v4.gui.Trees.inspect(tree,parser);
+        //org.antlr.v4.gui.Trees.inspect(tree,parser);
 
 
     }

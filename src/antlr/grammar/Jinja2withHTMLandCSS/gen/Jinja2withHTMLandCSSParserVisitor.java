@@ -11,11 +11,19 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface Jinja2withHTMLandCSSParserVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#prog}.
+	 * Visit a parse tree produced by the {@code jinja2}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#prog}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProg(Jinja2withHTMLandCSSParser.ProgContext ctx);
+	T visitJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx);
+	/**
+	 * Visit a parse tree produced by the {@code css}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#prog}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCss(Jinja2withHTMLandCSSParser.CssContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#jinja2Prog}.
 	 * @param ctx the parse tree
@@ -29,17 +37,19 @@ public interface Jinja2withHTMLandCSSParserVisitor<T> extends ParseTreeVisitor<T
 	 */
 	T visitDoctype(Jinja2withHTMLandCSSParser.DoctypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#htmlelement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHtmlelement(Jinja2withHTMLandCSSParser.HtmlelementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#openCloseTag}.
+	 * Visit a parse tree produced by the {@code openCloseTag}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#htmlelement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code selfClosingTag}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#htmlelement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#startTag}.
 	 * @param ctx the parse tree
@@ -59,23 +69,25 @@ public interface Jinja2withHTMLandCSSParserVisitor<T> extends ParseTreeVisitor<T
 	 */
 	T visitTagName(Jinja2withHTMLandCSSParser.TagNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#selfClosingTag}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#voidTagName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVoidTagName(Jinja2withHTMLandCSSParser.VoidTagNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#attribute}.
+	 * Visit a parse tree produced by the {@code fullAttr}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAttribute(Jinja2withHTMLandCSSParser.AttributeContext ctx);
+	T visitFullAttr(Jinja2withHTMLandCSSParser.FullAttrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code booleanAttr}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#attribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanAttr(Jinja2withHTMLandCSSParser.BooleanAttrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#attributeName}.
 	 * @param ctx the parse tree
@@ -89,11 +101,33 @@ public interface Jinja2withHTMLandCSSParserVisitor<T> extends ParseTreeVisitor<T
 	 */
 	T visitAttributeValue(Jinja2withHTMLandCSSParser.AttributeValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * Visit a parse tree produced by the {@code textContent}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElementContent(Jinja2withHTMLandCSSParser.ElementContentContext ctx);
+	T visitTextContent(Jinja2withHTMLandCSSParser.TextContentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code nestedElement}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNestedElement(Jinja2withHTMLandCSSParser.NestedElementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code jinjaExpression}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaExpression(Jinja2withHTMLandCSSParser.JinjaExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code jinjaBlock}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#elementContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaBlock(Jinja2withHTMLandCSSParser.JinjaBlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#statement}.
 	 * @param ctx the parse tree
@@ -207,9 +241,59 @@ public interface Jinja2withHTMLandCSSParserVisitor<T> extends ParseTreeVisitor<T
 	 */
 	T visitCssValue(Jinja2withHTMLandCSSParser.CssValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * Visit a parse tree produced by the {@code cssNumber}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCssValueAtom(Jinja2withHTMLandCSSParser.CssValueAtomContext ctx);
+	T visitCssNumber(Jinja2withHTMLandCSSParser.CssNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssUnit}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssUnit(Jinja2withHTMLandCSSParser.CssUnitContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssColor}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssColor(Jinja2withHTMLandCSSParser.CssColorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssIdentifier}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssIdentifier(Jinja2withHTMLandCSSParser.CssIdentifierContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssComma}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssComma(Jinja2withHTMLandCSSParser.CssCommaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssLParen}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssLParen(Jinja2withHTMLandCSSParser.CssLParenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssRParen}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssRParen(Jinja2withHTMLandCSSParser.CssRParenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cssMinus}
+	 * labeled alternative in {@link Jinja2withHTMLandCSSParser#cssValueAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssMinus(Jinja2withHTMLandCSSParser.CssMinusContext ctx);
 }

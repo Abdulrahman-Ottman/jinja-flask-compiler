@@ -3,35 +3,30 @@ parser grammar Jinja2withHTMLandCSSParser;
 options { tokenVocab=Jinja2withHTMLandCSSLexer; }
 
 prog
-    : jinja2Prog
-    | cssProg
+    : jinja2Prog #jinja2
+    | cssProg    #css
  ;
 
 jinja2Prog
-        : doctype? htmlelement+
-        ;
+    : doctype? htmlelement+
+    ;
 
 doctype
     : OPEN_TAG NOT DOCTYPE_TAG HTML_TAG CLOSE_TAG
     ;
 
-
 htmlelement
-        : openCloseTag
-        | selfClosingTag
-        ;
-
-openCloseTag
-       : startTag elementContent* endTag
-       ;
+    : startTag elementContent* endTag                          #openCloseTag
+    | OPEN_TAG voidTagName attribute* (SELF_CLOSD | CLOSE_TAG) #selfClosingTag
+    ;
 
 startTag
-        : OPEN_TAG tagName attribute* CLOSE_TAG
-        ;
+    : OPEN_TAG tagName attribute* CLOSE_TAG
+    ;
 
 endTag
-        : OPEN_TAG_SLASH tagName CLOSE_TAG
-        ;
+    : OPEN_TAG_SLASH tagName CLOSE_TAG
+    ;
 
 tagName
     : HTML_TAG
@@ -51,11 +46,6 @@ tagName
     | LI_TAG
     ;
 
-
-selfClosingTag
-    : OPEN_TAG voidTagName attribute* (SELF_CLOSD | CLOSE_TAG)
-    ;
-
 voidTagName
     : META_TAG
     | LINK_TAG
@@ -64,9 +54,9 @@ voidTagName
     ;
 
 attribute
-        : attributeName ASSIGN attributeValue
-        | attributeName
-        ;
+    : attributeName ASSIGN attributeValue #fullAttr
+    | attributeName                       #booleanAttr
+    ;
 
 attributeName
     : CHARSET_ATT
@@ -85,23 +75,22 @@ attributeName
 
 attributeValue : STRING;
 
-elementContent:
-          statement
-        | htmlelement
-        | expression
-        | block
-        ;
+elementContent
+    : statement    #textContent
+    | htmlelement  #nestedElement
+    | expression   #jinjaExpression
+    | block        #jinjaBlock
+    ;
 
 statement: (IDDEFINER | COLON | LPAREN | RPAREN | DOT )+;
-
 
 expression
     : LCURLY LCURLY memberAccess RCURLY RCURLY
     ;
 
 memberAccess
-        : IDDEFINER (DOT IDDEFINER)*
-        ;
+    : IDDEFINER (DOT IDDEFINER)*
+    ;
 
 block
     : BLOCK_START FOR IDDEFINER IN IDDEFINER BLOCK_END
@@ -109,8 +98,6 @@ block
       BLOCK_START END_FOR BLOCK_END
     ;
 
-
-// CSS
 // ================= CSS =================
 
 cssProg
@@ -129,7 +116,6 @@ cssSelector
     : simpleSelector (simpleSelector)* (COLON pseudoClass)?
     ;
 
-
 cssElementName
     : tagName
     | voidTagName
@@ -147,59 +133,34 @@ simpleSelector
     | HASH IDDEFINER      #IdSelector
     ;
 
-
 pseudoClass
     : PSEUDO_HOVER
     ;
-
 
 cssDeclaration
     : cssProperty COLON cssValue SEMICOLON
     ;
 
 cssProperty
-    : FONT_FAMILY
-    | BACKGROUND
-    | BACKGROUND_COLOR
-    | COLOR_PROP
-    | PADDING
-    | PADDING_TOP
-    | PADDING_BOTTOM
-    | MARGIN
-    | MARGIN_TOP
-    | MARGIN_BOTTOM
-    | WIDTH
-    | HEIGHT
-    | DISPLAY
-    | GAP
-    | FLEX_WRAP
-    | JUSTIFY_CONTENT
-    | TEXT_ALIGN
-    | FONT_SIZE
-    | FONT_WEIGHT
-    | BORDER
-    | BORDER_RADIUS
-    | BOX_SHADOW
-    | TEXT_DECORATION
-    | CURSOR
-    | TRANSFORM
-    | FLEX_DIRECTION
+    : FONT_FAMILY | BACKGROUND | BACKGROUND_COLOR | COLOR_PROP
+    | PADDING | PADDING_TOP | PADDING_BOTTOM | MARGIN
+    | MARGIN_TOP | MARGIN_BOTTOM | WIDTH | HEIGHT | DISPLAY
+    | GAP | FLEX_WRAP | JUSTIFY_CONTENT | TEXT_ALIGN | FONT_SIZE
+    | FONT_WEIGHT | BORDER | BORDER_RADIUS | BOX_SHADOW
+    | TEXT_DECORATION | CURSOR | TRANSFORM | FLEX_DIRECTION
     ;
-
 
 cssValue
     : cssValueAtom+
     ;
 
 cssValueAtom
-    : NUMBER
-    | CSS_UNIT
-    | CSS_COLOR
-    | IDDEFINER
-    | COMMA
-    | LPAREN
-    | RPAREN
-    | MINUS
+    : NUMBER        #cssNumber
+    | CSS_UNIT      #cssUnit
+    | CSS_COLOR     #cssColor
+    | IDDEFINER     #cssIdentifier
+    | COMMA         #cssComma
+    | LPAREN        #cssLParen
+    | RPAREN        #cssRParen
+    | MINUS         #cssMinus
     ;
-
-
