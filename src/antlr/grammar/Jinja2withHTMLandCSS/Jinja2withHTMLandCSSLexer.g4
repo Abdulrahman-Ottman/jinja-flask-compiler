@@ -98,7 +98,10 @@ DIVISION         : '/';
 FOR              : 'for';
 END_FOR          : 'endfor';
 IN               : 'in';
-STRING           : '"' .*? '"' | '\'' .*? '\'';
+STRING
+    : '"' (~["\r\n])* '"'
+    | '\'' (~["\r\n])* '\''
+    ;
 NUMBER           : ('-' | '+')? [0-9]+ ('.' [0-9]+)? ;
 BOOL             : 'true' | 'false' ;
 CSS_UNIT : 'px' | 'em' | 'rem'| '%' ;

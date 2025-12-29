@@ -7,10 +7,21 @@ import ASTJinja2withHTMLandCSS.CSS.Factory.CSSPropertyFactory;
 import ASTJinja2withHTMLandCSS.CSS.Selectors.*;
 import ASTJinja2withHTMLandCSS.Jinja2.*;
 import ASTJinja2withHTMLandCSS.Jinja2.Factory.*;
+import SymbolsTable.SymbolsTable;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParserBaseVisitor;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParser;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> {
+    private final SymbolsTable htmlST = SymbolsTable.getHtmlInstance();
+    public List<String> semanticErrors;
+    public BaseVisitor() {
+        this.semanticErrors = new ArrayList<>();
+    }
 
     @Override
     public ASTNode visitJinja2(Jinja2withHTMLandCSSParser.Jinja2Context ctx) {
@@ -71,8 +82,18 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         TagNameNode tn = (TagNameNode) visit(ctx.tagName());
         StartTagNode node = new StartTagNode(ctx.start.getLine(), tn);
 
-        for (var att : ctx.attribute())
-            node.addAttribute((AttributeNode) visit(att));
+        for (var att : ctx.attribute()) {
+            AttributeNode attrNode = (AttributeNode) visit(att);
+            node.addAttribute(attrNode);
+
+            String attrName = attrNode.getName();
+            if (attrName.equals("id") || attrName.equals("class")) {
+                Map<String, Object> details = new LinkedHashMap<>();
+                details.put("type", attrName);
+                details.put("line", ctx.start.getLine());
+                htmlST.addHtmlSymbol(attrNode.getValue(), details);
+            }
+        }
 
         return node;
     }
@@ -157,6 +178,12 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
     @Override
     public ASTNode visitMemberAccess(Jinja2withHTMLandCSSParser.MemberAccessContext ctx) {
         MemberAccessNode node = new MemberAccessNode(ctx.start.getLine());
+        String baseVar = ctx.IDDEFINER(0).getText();
+        Map<String, Object> dataSent = htmlST.getHtmlSymbol("data_sent");
+        if (!htmlST.getHtmlSymbol("data_sent").containsKey(baseVar)) {
+            semanticErrors.add("Line " + ctx.start.getLine() +
+                    ": Variable '" + baseVar + "' not found in data_sent.");
+        }
         for (var id : ctx.IDDEFINER()) {
             node.addPart(id.getText());
         }
@@ -165,6 +192,9 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitBlock(Jinja2withHTMLandCSSParser.BlockContext ctx) {
+        String baseVar = ctx.IDDEFINER(1).getText();
+        if (!htmlST.getHtmlSymbol("data_sent").containsKey(baseVar))
+        {semanticErrors.add("Line " + ctx.start.getLine() + ": Variable '" + baseVar + "' not found in data_sent.");}
         BlockNode block = new BlockNode(
                 ctx.start.getLine(),
                 ctx.IDDEFINER(0).getText(),
@@ -228,6 +258,10 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitClassSelector(Jinja2withHTMLandCSSParser.ClassSelectorContext ctx) {
+        String className = ctx.className().getText();
+        if (htmlST.getHtmlSymbol(className) == null) {
+            semanticErrors.add("Line " + ctx.start.getLine() + " Warning: CSS class ." + className + " is defined but never used in HTML.");
+        }
         CSSNameNode name = new CSSNameNode(ctx.start.getLine(), ctx.className().getText());
         return new ClassSelectorNode(ctx.start.getLine(), name);
     }
