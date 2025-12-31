@@ -9,7 +9,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.antlr.v4.runtime.CharStreams.fromFileName;
@@ -24,20 +26,25 @@ public class Test {
         String Css = "Testing Project/FlaskTestingApp/static/style.css";
         SymbolsTable symbolsTable= SymbolsTable.getHtmlInstance();
         Map<String, Object> inner = new LinkedHashMap<>();
-        inner.put("products","all the product");
-        inner.put("product","like 1");
-        inner.put("pr","test");
+        //inner.put("products","all the product");
+        //inner.put("product","like 1");
         symbolsTable.addHtmlSymbol("data_sent",inner);
+        List<String> allErrors = new ArrayList<>();
         // Run for HTML/Jinja2
         System.out.println("--- Processing HTML/Jinja2 ---");
-        runParser(t1);
-        runParser(t2);
-        runParser(t3);
+
+        allErrors.addAll(runParser(t1));
+        allErrors.addAll(runParser(t2));
+        allErrors.addAll(runParser(t3));
         // Run for CSS
         System.out.println("\n--- Processing CSS ---");
-        runParser(Css);
+        //allErrors.add("ERRORS: "+Css);
+        allErrors.addAll(runParser(Css));
+        for( String erro :allErrors)
+        {System.err.println(erro);}
+        IO.println();
     }
-    public static void runParser(String filePath) throws Exception {
+    public static List<String> runParser(String filePath) throws Exception {
         CharStream cs = fromFileName(filePath);
         Jinja2withHTMLandCSSLexer lexer = new Jinja2withHTMLandCSSLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -51,9 +58,10 @@ public class Test {
 
         System.out.println("<<<<<< AST >>>>>>");
         root.print("");
-        //org.antlr.v4.gui.Trees.inspect(tree,parser);
-        if (!builder.semanticErrors.isEmpty()){
-            for (String x : builder.semanticErrors) System.err.println(x);
-        }
+        if (!builder.semanticErrors.isEmpty())
+            builder.semanticErrors.addFirst("ERRORS for the file: "+filePath);
+        List<String> errors = List.copyOf(builder.semanticErrors);
+        builder.semanticErrors.clear();
+        return errors;
     }
 }

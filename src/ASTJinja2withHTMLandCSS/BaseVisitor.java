@@ -87,14 +87,33 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
             node.addAttribute(attrNode);
 
             String attrName = attrNode.getName();
-            if (attrName.equals("id") || attrName.equals("class")) {
-                Map<String, Object> details = new LinkedHashMap<>();
-                details.put("type", attrName);
-                details.put("line", ctx.start.getLine());
-                htmlST.addHtmlSymbol(attrNode.getValue(), details);
+
+            if (attrNode.getValue() != null) {
+                String attrValue = attrNode.getValue(); // Get the string value
+
+                if (attrName.equals("id")) {
+                    if (htmlST.getHtmlSymbol(attrValue) != null) {
+                        semanticErrors.add("Line " + ctx.start.getLine() + ": Duplicate ID '" + attrValue + "' detected.");
+                    } else {
+                        Map<String, Object> details = new LinkedHashMap<>();
+                        details.put("type", "id");
+                        details.put("line", ctx.start.getLine());
+                        htmlST.addHtmlSymbol(attrValue, details);
+                    }
+                }
+                else if (attrName.equals("class")) {
+                    String[] classes = attrValue.split("\\s+");
+                    for (String className : classes) {
+                        if (!className.isEmpty()) {
+                            Map<String, Object> details = new LinkedHashMap<>();
+                            details.put("type", "class");
+                            details.put("line", ctx.start.getLine());
+                            htmlST.addHtmlSymbol(className, details);
+                        }
+                    }
+                }
             }
         }
-
         return node;
     }
 
@@ -177,33 +196,49 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitMemberAccess(Jinja2withHTMLandCSSParser.MemberAccessContext ctx) {
-        MemberAccessNode node = new MemberAccessNode(ctx.start.getLine());
         String baseVar = ctx.IDDEFINER(0).getText();
-        Map<String, Object> dataSent = htmlST.getHtmlSymbol("data_sent");
-        if (!htmlST.getHtmlSymbol("data_sent").containsKey(baseVar)) {
-            semanticErrors.add("Line " + ctx.start.getLine() +
-                    ": Variable '" + baseVar + "' not found in data_sent.");
+        Map<String, Object> dataSent = (Map<String, Object>) htmlST.getHtmlSymbol("data_sent");
+
+        // Check if base exists (either in data_sent or as a local iterator)
+        boolean existsGlobally = dataSent != null && dataSent.containsKey(baseVar);
+        boolean existsLocally = htmlST.getHtmlSymbol(baseVar) != null;
+
+        if (!existsGlobally && !existsLocally) {
+            semanticErrors.add("Line " + ctx.start.getLine() + ": Variable '" + baseVar + "' is undefined.");
+
         }
-        for (var id : ctx.IDDEFINER()) {
-            node.addPart(id.getText());
+        // Advanced: If base is found and there are nested parts (e.g., pr.price)
+        if (existsGlobally && ctx.IDDEFINER().size() > 1) {
+            // You could reflectively check if the object in dataSent has the subsequent keys
+            // This is where you'd catch 'pr.Price' vs 'pr.price' errors
         }
+
+        MemberAccessNode node = new MemberAccessNode(ctx.start.getLine());
+        for (var id : ctx.IDDEFINER()) node.addPart(id.getText());
         return node;
     }
 
     @Override
     public ASTNode visitBlock(Jinja2withHTMLandCSSParser.BlockContext ctx) {
-        String baseVar = ctx.IDDEFINER(1).getText();
-        if (!htmlST.getHtmlSymbol("data_sent").containsKey(baseVar))
-        {semanticErrors.add("Line " + ctx.start.getLine() + ": Variable '" + baseVar + "' not found in data_sent.");}
-        BlockNode block = new BlockNode(
-                ctx.start.getLine(),
-                ctx.IDDEFINER(0).getText(),
-                ctx.IDDEFINER(1).getText()
-        );
+        String iterator = ctx.IDDEFINER(0).getText();
+        String collection = ctx.IDDEFINER(1).getText();
 
-        for (var c : ctx.elementContent())
-            block.addContent(visit(c));
+        Map<String, Object> dataSent = (Map<String, Object>) htmlST.getHtmlSymbol("data_sent");
+        if (dataSent == null || !dataSent.containsKey(collection)) {
+            semanticErrors.add("Line " + ctx.start.getLine() + ": Collection '" + collection + "' not found.");
+        }
 
+        Map<String, Object> localDetails = new LinkedHashMap<>();
+        localDetails.put("type", "iterator");
+        localDetails.put("parent_collection", collection);
+        htmlST.addHtmlSymbol(iterator, localDetails);
+
+        BlockNode block = new BlockNode(ctx.start.getLine(), iterator, collection);
+        for (var c : ctx.elementContent()){
+        block.addContent(visit(c));
+        }
+
+        htmlST.removehtmlkey(iterator);
         return block;
     }
 
@@ -273,7 +308,11 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitIdSelector(Jinja2withHTMLandCSSParser.IdSelectorContext ctx) {
-        return new IdSelectorNode(ctx.start.getLine(), ctx.IDDEFINER().getText());
+        String idName = ctx.IDDEFINER().getText();
+        if (htmlST.getHtmlSymbol(idName) == null) {
+            semanticErrors.add("Line " + ctx.start.getLine() + " Warning: CSS ID #" + idName + " has no matching element in HTML.");
+        }
+        return new IdSelectorNode(ctx.start.getLine(), idName);
     }
 
     @Override

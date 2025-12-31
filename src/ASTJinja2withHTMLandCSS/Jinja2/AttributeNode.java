@@ -11,7 +11,10 @@ public class AttributeNode extends ASTNode {
         this.value = value;
     }
     public String getName() { return name.getName(); }
-    public String getValue() { return value.getValue(); }
+    public String getValue() {
+        if (value==null) return null;
+        return value.getValue();
+    }
 
     @Override
     public void print(String indent) {
