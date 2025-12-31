@@ -14,24 +14,36 @@ import java.util.Map;
 public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
     @Override
     public Expression visitVar(FlaskExprParser.VarContext ctx) {
-        return new Name(ctx.NAME().getText());
+        return new Name(ctx.getStart().getLine(),ctx.NAME().getText());
     }
 
     @Override
     public Expression visitNumber(FlaskExprParser.NumberContext ctx) {
         String text = ctx.NUMBER().getText();
-        return new Literal(parseNumber(text));
+        return new Literal(ctx.getStart().getLine(),parseNumber(text));
     }
 
     @Override
     public Expression visitString(FlaskExprParser.StringContext ctx) {
         String text = ctx.STRING().getText();
-        return new Literal(text);
+        return new Literal(ctx.getStart().getLine(),text);
     }
 
-    @Override public Expression visitTrueLit(FlaskExprParser.TrueLitContext ctx)  { return Literal.TRUE; }
-    @Override public Expression visitFalseLit(FlaskExprParser.FalseLitContext ctx) { return Literal.FALSE; }
-    @Override public Expression visitNoneLit(FlaskExprParser.NoneLitContext ctx)  { return Literal.NONE; }
+    @Override
+    public Expression visitTrueLit(FlaskExprParser.TrueLitContext ctx) {
+        return Literal.trueLiteral(ctx.start.getLine());
+    }
+
+    @Override
+    public Expression visitFalseLit(FlaskExprParser.FalseLitContext ctx) {
+        return Literal.falseLiteral(ctx.start.getLine());
+    }
+
+    @Override
+    public Expression visitNoneLit(FlaskExprParser.NoneLitContext ctx) {
+        return Literal.noneLiteral(ctx.start.getLine());
+    }
+
 
 
     @Override public Expression visitParens(FlaskExprParser.ParensContext ctx) { return visit(ctx.expr()); }
@@ -40,18 +52,18 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
     @Override
     public Expression visitList(FlaskExprParser.ListContext ctx) {
         if (ctx.expr() == null || ctx.expr().isEmpty()) {
-            return new ListExpr(List.of());
+            return new ListExpr(ctx.getStart().getLine(),List.of());
         }
         List<Expression> elements = ctx.expr().stream()
                 .map(this::visit)
                 .toList();
-        return new ListExpr(elements);
+        return new ListExpr(ctx.getStart().getLine(),elements);
     }
 
     @Override
     public Expression visitDict(FlaskExprParser.DictContext ctx) {
         if (ctx.STRING() == null || ctx.STRING().isEmpty()) {
-            return new DictExpr(Map.of());
+            return new DictExpr(ctx.getStart().getLine(),Map.of());
         }
 
         Map<String, Expression> map = new LinkedHashMap<>();
@@ -60,47 +72,47 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
             Expression value = visit(ctx.expr(i));
             map.put(key, value);
         }
-        return new DictExpr(map);
+        return new DictExpr(ctx.getStart().getLine(),map);
     }
     @Override public Expression visitAttribute(FlaskExprParser.AttributeContext ctx) {
         Expression obj = visit(ctx.expr());
         requireParenthesesIfBinOp(obj, ctx, "attribute access");
-        return new Attribute(obj, ctx.NAME().getText());
+        return new Attribute(ctx.getStart().getLine(),obj, ctx.NAME().getText());
     }
 
     @Override public Expression visitSubscript(FlaskExprParser.SubscriptContext ctx) {
         Expression target = visit(ctx.expr(0));
         requireParenthesesIfBinOp(target, ctx, "subscript");
         Expression index = visit(ctx.expr(1));
-        return new Subscript(target, index);
+        return new Subscript(ctx.getStart().getLine(),target, index);
     }
 
     @Override
     public Expression visitMultiplication(FlaskExprParser.MultiplicationContext ctx) {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
-        return binOp(left, right, "*");
+        return binOp(ctx.getStart().getLine(),left, right, "*");
     }
 
     @Override
     public Expression visitDivision(FlaskExprParser.DivisionContext ctx) {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
-        return binOp(left, right, "/");
+        return binOp(ctx.getStart().getLine(),left, right, "/");
     }
 
     @Override
     public Expression visitAddition(FlaskExprParser.AdditionContext ctx) {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
-        return binOp(left, right, "+");
+        return binOp(ctx.getStart().getLine(),left, right, "+");
     }
 
     @Override
     public Expression visitSubtraction(FlaskExprParser.SubtractionContext ctx) {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
-        return binOp(left, right, "-");
+        return binOp(ctx.getStart().getLine(),left, right, "-");
     }
 
     @Override
@@ -108,7 +120,7 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
         String opText = ctx.getChild(1).getText();  // >, <, >=, ==, etc.
-        return binOp(left, right, opText);
+        return binOp(ctx.getStart().getLine(),left, right, opText);
     }
 
 
@@ -160,7 +172,7 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
             }
         }
 
-        return new FunctionCall(called, args, kwargs);
+        return new FunctionCall(ctx.getStart().getLine(),called, args, kwargs);
     }
 
     private static Object parseNumber(String text) {
@@ -204,10 +216,12 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
         }
     }
 
-    private Expression binOp(Expression left, Expression right, String opToken) {
-        BinaryOperation.Operator op = BinaryOperation.Operator.fromToken(opToken);
-        return new BinaryOperation(left, op, right);
+    private Expression binOp(int line, Expression left, Expression right, String opToken) {
+        BinaryOperation.Operator op =
+                BinaryOperation.Operator.fromToken(opToken);
+        return new BinaryOperation(line, left, op, right);
     }
+
 }
 
 

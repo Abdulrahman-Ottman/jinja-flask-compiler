@@ -2,12 +2,14 @@ package FlaskStatement;
 
 import FlaskStatement.Expression;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Literal extends Expression {
     public  Object value;  // null, Boolean, Integer, Long, Double, String
 
-    public Literal(Object value) {
+    public Literal(int line ,Object value) {
+        super(line);
         this.value = value;
     }
 
@@ -19,9 +21,17 @@ public class Literal extends Expression {
 
 
 
-    public static final Literal TRUE  = new Literal(Boolean.TRUE);
-    public static final Literal FALSE = new Literal(Boolean.FALSE);
-    public static final Literal NONE  = new Literal(null);
+    public static Literal trueLiteral(int line) {
+        return new Literal(line, Boolean.TRUE);
+    }
+
+    public static Literal falseLiteral(int line) {
+        return new Literal(line, Boolean.FALSE);
+    }
+
+    public static Literal noneLiteral(int line) {
+        return new Literal(line, null);
+    }
 
     @Override
     public String toString() {
@@ -37,5 +47,10 @@ public class Literal extends Expression {
         if (this == o) return true;
         if (!(o instanceof Literal)) return false;
         return Objects.equals(value, ((Literal) o).value);
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of();
     }
 }
