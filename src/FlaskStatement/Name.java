@@ -11,6 +11,11 @@ public class Name extends Expression {
     }
 
     @Override
+    public String toString() {
+        return id;
+    }
+
+    @Override
     public List<ASTNode> getChildren() {
         return List.of(); // leaf
     }
