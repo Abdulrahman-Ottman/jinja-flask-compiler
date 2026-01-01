@@ -1,13 +1,21 @@
 package antlr.grammar.flask;
 
 import FlaskStatement.*;
+import SymbolsTable.SymbolsTable;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<Statement>{
     AntlrToExpression expressionVisitor = new AntlrToExpression();
+    SymbolsTable sym = SymbolsTable.getFlaskInstance();
+    public static Stack<String> scope = new Stack<>();
+
+    int forCounter = 0;
+    int ifCounter =0;
+    public ASTStatementsBuilderVisitor() {
+        scope.push("main");
+    }
 
     @Override
     public Statement visitImportstatement(FlaskExprParser.ImportstatementContext ctx) {
@@ -28,8 +36,14 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
     @Override
     public Statement visitAssignment(FlaskExprParser.AssignmentContext ctx) {
 
+
         Expression left =  expressionVisitor.visit(ctx.expr(0));
         Expression right =  expressionVisitor.visit(ctx.expr(1));
+        //if the sym already contains the left, it will update the value automatically
+        Map<String,Object> values = new LinkedHashMap<>();
+        values.put("value",right);
+        values.put("scope",scope.peek());
+        sym.addFlaskSymbol(scope.peek()+"."+left.toString(),values);
 
         return new Assignment(ctx.getStart().getLine(),left, right);
     }
@@ -85,25 +99,38 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
         // 1) Name of function
         String name = ctx.NAME(0).getText();
-
         // 2) Parameters
         List<String> parameters = new ArrayList<>();
         for (int i = 1; i < ctx.NAME().size(); i++) {
             parameters.add(ctx.NAME(i).getText());
         }
 
+        Map<String,Object> values = new LinkedHashMap<>();
+        values.put("name",name);
+        values.put("type","function");
+        values.put("parameters",parameters);
+        sym.addFlaskSymbol(scope.peek()+"."+name,values);
+
+
+
+
+        scope.push(scope.peek()+"."+name);
         // 3) Body statements
         List<Statement> body = new ArrayList<>();
         for (var stmtCtx : ctx.statement()) {
             body.add((Statement) visit(stmtCtx));
         }
 
+        scope.pop();
         return new FunctionDef(ctx.getStart().getLine(), name, parameters, body,null);
     }
 
 
     @Override
     public Statement visitIfstatement(FlaskExprParser.IfstatementContext ctx) {
+
+        ifCounter++;
+        scope.push(scope.peek() + ".if"+ifCounter);
         Expression condition = expressionVisitor.visit(ctx.expr());
 
         List<Statement> ifBody = new ArrayList<>();
@@ -118,6 +145,7 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 //            }
 //        }
 
+        scope.pop();
         return new IfStatement(ctx.getStart().getLine(),condition, ifBody, elseBody);
     }
 
@@ -125,6 +153,9 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
     @Override
     public Statement visitForstatement(FlaskExprParser.ForstatementContext ctx) {
+
+        forCounter++;
+        scope.push(scope.peek() + ".for"+forCounter);
 
         String name = ctx.NAME().getText();
         Expression expression = expressionVisitor.visit(ctx.expr());
@@ -134,6 +165,7 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
             body.add((Statement) visit(statement));
         }
 
+        scope.pop();
         return new  ForStatement(ctx.getStart().getLine(),expression,name,body);
 
     }

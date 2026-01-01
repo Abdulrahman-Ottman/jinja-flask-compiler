@@ -1705,11 +1705,11 @@ public class FlaskExprParser extends Parser {
 						_localctx = new MultiplicationContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(172);
-						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
 						setState(173);
 						match(STAR);
 						setState(174);
-						expr(16);
+						expr(15);
 						}
 						break;
 					case 2:
@@ -1717,11 +1717,11 @@ public class FlaskExprParser extends Parser {
 						_localctx = new DivisionContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(175);
-						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(176);
 						match(SLASH);
 						setState(177);
-						expr(15);
+						expr(14);
 						}
 						break;
 					case 3:
@@ -1729,11 +1729,11 @@ public class FlaskExprParser extends Parser {
 						_localctx = new AdditionContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(178);
-						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(179);
 						match(PLUS);
 						setState(180);
-						expr(14);
+						expr(13);
 						}
 						break;
 					case 4:
@@ -1741,11 +1741,11 @@ public class FlaskExprParser extends Parser {
 						_localctx = new SubtractionContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(181);
-						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(182);
 						match(MINUS);
 						setState(183);
-						expr(13);
+						expr(12);
 						}
 						break;
 					case 5:
@@ -1753,7 +1753,7 @@ public class FlaskExprParser extends Parser {
 						_localctx = new ComparisonContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(184);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
 						setState(185);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 8521215119360L) != 0)) ) {
@@ -1765,95 +1765,95 @@ public class FlaskExprParser extends Parser {
 							consume();
 						}
 						setState(186);
-						expr(12);
+						expr(11);
 						}
 						break;
 					case 6:
 						{
-						_localctx = new SubscriptContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new FunctionCallContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(187);
 						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
 						setState(188);
-						match(LBRACK);
-						setState(189);
-						expr(0);
-						setState(190);
-						match(RBRACK);
-						}
-						break;
-					case 7:
-						{
-						_localctx = new FunctionCallContext(new ExprContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(192);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(193);
 						match(LPAREN);
-						setState(212);
+						setState(207);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 8455716906L) != 0)) {
 							{
-							setState(198);
+							setState(193);
 							_errHandler.sync(this);
 							switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 							case 1:
 								{
-								setState(194);
+								setState(189);
 								expr(0);
 								}
 								break;
 							case 2:
 								{
-								setState(195);
+								setState(190);
 								match(NAME);
-								setState(196);
+								setState(191);
 								match(ASSIGN);
-								setState(197);
+								setState(192);
 								expr(0);
 								}
 								break;
 							}
-							setState(209);
+							setState(204);
 							_errHandler.sync(this);
 							_la = _input.LA(1);
 							while (_la==COMMA) {
 								{
 								{
-								setState(200);
+								setState(195);
 								match(COMMA);
-								setState(205);
+								setState(200);
 								_errHandler.sync(this);
 								switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
 								case 1:
 									{
-									setState(201);
+									setState(196);
 									expr(0);
 									}
 									break;
 								case 2:
 									{
-									setState(202);
+									setState(197);
 									match(NAME);
-									setState(203);
+									setState(198);
 									match(ASSIGN);
-									setState(204);
+									setState(199);
 									expr(0);
 									}
 									break;
 								}
 								}
 								}
-								setState(211);
+								setState(206);
 								_errHandler.sync(this);
 								_la = _input.LA(1);
 							}
 							}
 						}
 
-						setState(214);
+						setState(209);
 						match(RPAREN);
+						}
+						break;
+					case 7:
+						{
+						_localctx = new SubscriptContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(210);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						setState(211);
+						match(LBRACK);
+						setState(212);
+						expr(0);
+						setState(213);
+						match(RBRACK);
 						}
 						break;
 					case 8:
@@ -1898,19 +1898,19 @@ public class FlaskExprParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 15);
-		case 1:
 			return precpred(_ctx, 14);
-		case 2:
+		case 1:
 			return precpred(_ctx, 13);
-		case 3:
+		case 2:
 			return precpred(_ctx, 12);
-		case 4:
+		case 3:
 			return precpred(_ctx, 11);
+		case 4:
+			return precpred(_ctx, 10);
 		case 5:
 			return precpred(_ctx, 16);
 		case 6:
-			return precpred(_ctx, 10);
+			return precpred(_ctx, 15);
 		case 7:
 			return precpred(_ctx, 9);
 		}
@@ -1947,11 +1947,11 @@ public class FlaskExprParser extends Parser {
 		"\u000b\u00ab\b\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
 		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
 		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u00c7\b\u000b\u0001"+
-		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u00ce"+
-		"\b\u000b\u0005\u000b\u00d0\b\u000b\n\u000b\f\u000b\u00d3\t\u000b\u0003"+
-		"\u000b\u00d5\b\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0005"+
+		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u00c2"+
+		"\b\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003"+
+		"\u000b\u00c9\b\u000b\u0005\u000b\u00cb\b\u000b\n\u000b\f\u000b\u00ce\t"+
+		"\u000b\u0003\u000b\u00d0\b\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
+		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0005"+
 		"\u000b\u00db\b\u000b\n\u000b\f\u000b\u00de\t\u000b\u0001\u000b\u0000\u0001"+
 		"\u0016\f\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0000"+
 		"\u0001\u0002\u0000\f\f&*\u00fd\u0000\u001b\u0001\u0000\u0000\u0000\u0002"+
@@ -2032,39 +2032,39 @@ public class FlaskExprParser extends Parser {
 		"\u0000\u00aa\u008a\u0001\u0000\u0000\u0000\u00aa\u008b\u0001\u0000\u0000"+
 		"\u0000\u00aa\u008c\u0001\u0000\u0000\u0000\u00aa\u008d\u0001\u0000\u0000"+
 		"\u0000\u00aa\u008e\u0001\u0000\u0000\u0000\u00aa\u009a\u0001\u0000\u0000"+
-		"\u0000\u00ab\u00dc\u0001\u0000\u0000\u0000\u00ac\u00ad\n\u000f\u0000\u0000"+
-		"\u00ad\u00ae\u0005\u000f\u0000\u0000\u00ae\u00db\u0003\u0016\u000b\u0010"+
-		"\u00af\u00b0\n\u000e\u0000\u0000\u00b0\u00b1\u0005\u0010\u0000\u0000\u00b1"+
-		"\u00db\u0003\u0016\u000b\u000f\u00b2\u00b3\n\r\u0000\u0000\u00b3\u00b4"+
-		"\u0005\r\u0000\u0000\u00b4\u00db\u0003\u0016\u000b\u000e\u00b5\u00b6\n"+
-		"\f\u0000\u0000\u00b6\u00b7\u0005\u000e\u0000\u0000\u00b7\u00db\u0003\u0016"+
-		"\u000b\r\u00b8\u00b9\n\u000b\u0000\u0000\u00b9\u00ba\u0007\u0000\u0000"+
-		"\u0000\u00ba\u00db\u0003\u0016\u000b\f\u00bb\u00bc\n\u0010\u0000\u0000"+
-		"\u00bc\u00bd\u0005\u0003\u0000\u0000\u00bd\u00be\u0003\u0016\u000b\u0000"+
-		"\u00be\u00bf\u0005\u0004\u0000\u0000\u00bf\u00db\u0001\u0000\u0000\u0000"+
-		"\u00c0\u00c1\n\n\u0000\u0000\u00c1\u00d4\u0005\u0001\u0000\u0000\u00c2"+
-		"\u00c7\u0003\u0016\u000b\u0000\u00c3\u00c4\u0005\u001e\u0000\u0000\u00c4"+
-		"\u00c5\u0005\u000b\u0000\u0000\u00c5\u00c7\u0003\u0016\u000b\u0000\u00c6"+
-		"\u00c2\u0001\u0000\u0000\u0000\u00c6\u00c3\u0001\u0000\u0000\u0000\u00c7"+
-		"\u00d1\u0001\u0000\u0000\u0000\u00c8\u00cd\u0005\t\u0000\u0000\u00c9\u00ce"+
-		"\u0003\u0016\u000b\u0000\u00ca\u00cb\u0005\u001e\u0000\u0000\u00cb\u00cc"+
-		"\u0005\u000b\u0000\u0000\u00cc\u00ce\u0003\u0016\u000b\u0000\u00cd\u00c9"+
-		"\u0001\u0000\u0000\u0000\u00cd\u00ca\u0001\u0000\u0000\u0000\u00ce\u00d0"+
-		"\u0001\u0000\u0000\u0000\u00cf\u00c8\u0001\u0000\u0000\u0000\u00d0\u00d3"+
-		"\u0001\u0000\u0000\u0000\u00d1\u00cf\u0001\u0000\u0000\u0000\u00d1\u00d2"+
-		"\u0001\u0000\u0000\u0000\u00d2\u00d5\u0001\u0000\u0000\u0000\u00d3\u00d1"+
-		"\u0001\u0000\u0000\u0000\u00d4\u00c6\u0001\u0000\u0000\u0000\u00d4\u00d5"+
-		"\u0001\u0000\u0000\u0000\u00d5\u00d6\u0001\u0000\u0000\u0000\u00d6\u00db"+
-		"\u0005\u0002\u0000\u0000\u00d7\u00d8\n\t\u0000\u0000\u00d8\u00d9\u0005"+
-		"\b\u0000\u0000\u00d9\u00db\u0005\u001e\u0000\u0000\u00da\u00ac\u0001\u0000"+
-		"\u0000\u0000\u00da\u00af\u0001\u0000\u0000\u0000\u00da\u00b2\u0001\u0000"+
-		"\u0000\u0000\u00da\u00b5\u0001\u0000\u0000\u0000\u00da\u00b8\u0001\u0000"+
-		"\u0000\u0000\u00da\u00bb\u0001\u0000\u0000\u0000\u00da\u00c0\u0001\u0000"+
-		"\u0000\u0000\u00da\u00d7\u0001\u0000\u0000\u0000\u00db\u00de\u0001\u0000"+
-		"\u0000\u0000\u00dc\u00da\u0001\u0000\u0000\u0000\u00dc\u00dd\u0001\u0000"+
-		"\u0000\u0000\u00dd\u0017\u0001\u0000\u0000\u0000\u00de\u00dc\u0001\u0000"+
-		"\u0000\u0000\u0016\u001b)/<?GUapx\u0081\u0094\u0097\u00a4\u00a7\u00aa"+
-		"\u00c6\u00cd\u00d1\u00d4\u00da\u00dc";
+		"\u0000\u00ab\u00dc\u0001\u0000\u0000\u0000\u00ac\u00ad\n\u000e\u0000\u0000"+
+		"\u00ad\u00ae\u0005\u000f\u0000\u0000\u00ae\u00db\u0003\u0016\u000b\u000f"+
+		"\u00af\u00b0\n\r\u0000\u0000\u00b0\u00b1\u0005\u0010\u0000\u0000\u00b1"+
+		"\u00db\u0003\u0016\u000b\u000e\u00b2\u00b3\n\f\u0000\u0000\u00b3\u00b4"+
+		"\u0005\r\u0000\u0000\u00b4\u00db\u0003\u0016\u000b\r\u00b5\u00b6\n\u000b"+
+		"\u0000\u0000\u00b6\u00b7\u0005\u000e\u0000\u0000\u00b7\u00db\u0003\u0016"+
+		"\u000b\f\u00b8\u00b9\n\n\u0000\u0000\u00b9\u00ba\u0007\u0000\u0000\u0000"+
+		"\u00ba\u00db\u0003\u0016\u000b\u000b\u00bb\u00bc\n\u0010\u0000\u0000\u00bc"+
+		"\u00cf\u0005\u0001\u0000\u0000\u00bd\u00c2\u0003\u0016\u000b\u0000\u00be"+
+		"\u00bf\u0005\u001e\u0000\u0000\u00bf\u00c0\u0005\u000b\u0000\u0000\u00c0"+
+		"\u00c2\u0003\u0016\u000b\u0000\u00c1\u00bd\u0001\u0000\u0000\u0000\u00c1"+
+		"\u00be\u0001\u0000\u0000\u0000\u00c2\u00cc\u0001\u0000\u0000\u0000\u00c3"+
+		"\u00c8\u0005\t\u0000\u0000\u00c4\u00c9\u0003\u0016\u000b\u0000\u00c5\u00c6"+
+		"\u0005\u001e\u0000\u0000\u00c6\u00c7\u0005\u000b\u0000\u0000\u00c7\u00c9"+
+		"\u0003\u0016\u000b\u0000\u00c8\u00c4\u0001\u0000\u0000\u0000\u00c8\u00c5"+
+		"\u0001\u0000\u0000\u0000\u00c9\u00cb\u0001\u0000\u0000\u0000\u00ca\u00c3"+
+		"\u0001\u0000\u0000\u0000\u00cb\u00ce\u0001\u0000\u0000\u0000\u00cc\u00ca"+
+		"\u0001\u0000\u0000\u0000\u00cc\u00cd\u0001\u0000\u0000\u0000\u00cd\u00d0"+
+		"\u0001\u0000\u0000\u0000\u00ce\u00cc\u0001\u0000\u0000\u0000\u00cf\u00c1"+
+		"\u0001\u0000\u0000\u0000\u00cf\u00d0\u0001\u0000\u0000\u0000\u00d0\u00d1"+
+		"\u0001\u0000\u0000\u0000\u00d1\u00db\u0005\u0002\u0000\u0000\u00d2\u00d3"+
+		"\n\u000f\u0000\u0000\u00d3\u00d4\u0005\u0003\u0000\u0000\u00d4\u00d5\u0003"+
+		"\u0016\u000b\u0000\u00d5\u00d6\u0005\u0004\u0000\u0000\u00d6\u00db\u0001"+
+		"\u0000\u0000\u0000\u00d7\u00d8\n\t\u0000\u0000\u00d8\u00d9\u0005\b\u0000"+
+		"\u0000\u00d9\u00db\u0005\u001e\u0000\u0000\u00da\u00ac\u0001\u0000\u0000"+
+		"\u0000\u00da\u00af\u0001\u0000\u0000\u0000\u00da\u00b2\u0001\u0000\u0000"+
+		"\u0000\u00da\u00b5\u0001\u0000\u0000\u0000\u00da\u00b8\u0001\u0000\u0000"+
+		"\u0000\u00da\u00bb\u0001\u0000\u0000\u0000\u00da\u00d2\u0001\u0000\u0000"+
+		"\u0000\u00da\u00d7\u0001\u0000\u0000\u0000\u00db\u00de\u0001\u0000\u0000"+
+		"\u0000\u00dc\u00da\u0001\u0000\u0000\u0000\u00dc\u00dd\u0001\u0000\u0000"+
+		"\u0000\u00dd\u0017\u0001\u0000\u0000\u0000\u00de\u00dc\u0001\u0000\u0000"+
+		"\u0000\u0016\u001b)/<?GUapx\u0081\u0094\u0097\u00a4\u00a7\u00aa\u00c1"+
+		"\u00c8\u00cc\u00cf\u00da\u00dc";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
