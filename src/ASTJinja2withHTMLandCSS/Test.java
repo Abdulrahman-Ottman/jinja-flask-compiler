@@ -26,8 +26,8 @@ public class Test {
         String Css = "Testing Project/FlaskTestingApp/static/style.css";
         SymbolsTable symbolsTable= SymbolsTable.getHtmlInstance();
         Map<String, Object> inner = new LinkedHashMap<>();
-        //inner.put("products","all the product");
-        //inner.put("product","like 1");
+        inner.put("products","all the product");
+        inner.put("product","like 1");
         symbolsTable.addHtmlSymbol("data_sent",inner);
         List<String> allErrors = new ArrayList<>();
         // Run for HTML/Jinja2

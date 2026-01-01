@@ -71,7 +71,11 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         SelfClosingTagNode node = new SelfClosingTagNode(ctx.start.getLine(), vtag);
 
         for (var att : ctx.attribute()) {
-            node.addAttribute((AttributeNode) visit(att));
+            AttributeNode attrNode = (AttributeNode) visit(att);
+            node.addAttribute(attrNode);
+
+            registerAttributes(attrNode,att.start.getLine());
+
         }
 
         return node;
@@ -86,33 +90,7 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
             AttributeNode attrNode = (AttributeNode) visit(att);
             node.addAttribute(attrNode);
 
-            String attrName = attrNode.getName();
-
-            if (attrNode.getValue() != null) {
-                String attrValue = attrNode.getValue(); // Get the string value
-
-                if (attrName.equals("id")) {
-                    if (htmlST.getHtmlSymbol(attrValue) != null) {
-                        semanticErrors.add("Line " + ctx.start.getLine() + ": Duplicate ID '" + attrValue + "' detected.");
-                    } else {
-                        Map<String, Object> details = new LinkedHashMap<>();
-                        details.put("type", "id");
-                        details.put("line", ctx.start.getLine());
-                        htmlST.addHtmlSymbol(attrValue, details);
-                    }
-                }
-                else if (attrName.equals("class")) {
-                    String[] classes = attrValue.split("\\s+");
-                    for (String className : classes) {
-                        if (!className.isEmpty()) {
-                            Map<String, Object> details = new LinkedHashMap<>();
-                            details.put("type", "class");
-                            details.put("line", ctx.start.getLine());
-                            htmlST.addHtmlSymbol(className, details);
-                        }
-                    }
-                }
-            }
+            registerAttributes(attrNode,att.start.getLine());
         }
         return node;
     }
@@ -240,6 +218,33 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
         htmlST.removehtmlkey(iterator);
         return block;
+    }
+    private void registerAttributes(AttributeNode attrNode, int line) {
+        String attrName = attrNode.getName().toLowerCase().trim();
+        String attrValue = attrNode.getValue();
+
+        if (attrValue != null) {
+            if (attrName.equals("id")) {
+                if (htmlST.getHtmlSymbol(attrValue) != null) {
+                    semanticErrors.add("Line " + line + ": Duplicate ID '" + attrValue + "' detected.");
+                } else {
+                    Map<String, Object> details = new LinkedHashMap<>();
+                    details.put("type", "id");
+                    details.put("line", line);
+                    htmlST.addHtmlSymbol(attrValue, details);
+                }
+            } else if (attrName.equals("class")) {
+                String[] classes = attrValue.split("\\s+");
+                for (String className : classes) {
+                    if (!className.isEmpty()) {
+                        Map<String, Object> details = new LinkedHashMap<>();
+                        details.put("type", "class");
+                        details.put("line", line);
+                        htmlST.addHtmlSymbol(className, details);
+                    }
+                }
+            }
+        }
     }
 
     // ===== CSS =====
