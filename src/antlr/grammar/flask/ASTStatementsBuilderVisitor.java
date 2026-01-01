@@ -29,7 +29,7 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
             importedName.add(ctx.importList().NAME(i).getText());
         }
 
-        return new ImportStatement(packageParts, importedName);
+        return new ImportStatement(ctx.getStart().getLine(),packageParts, importedName);
 
     }
 
@@ -45,14 +45,14 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
         values.put("scope",scope.peek());
         sym.addFlaskSymbol(scope.peek()+"."+left.toString(),values);
 
-        return new Assignment(left, right);
+        return new Assignment(ctx.getStart().getLine(),left, right);
     }
 
 
     @Override
     public Statement visitReturnStmt(FlaskExprParser.ReturnStmtContext ctx) {
         Expression expression = expressionVisitor.visit(ctx.expr());
-        return new ReturnStatement(expression);
+        return new ReturnStatement(ctx.getStart().getLine(),expression);
 
 
     }
@@ -61,18 +61,18 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
     @Override
     public Statement visitExprStmt(FlaskExprParser.ExprStmtContext ctx) {
         Expression expression = expressionVisitor.visit(ctx.expr());
-        return new ExpressionStatement(expression);
+        return new ExpressionStatement(ctx.getStart().getLine(),expression);
     }
 
 
     @Override
     public Statement visitBreak(FlaskExprParser.BreakContext ctx) {
-        return new BreakStatement();
+        return new BreakStatement(ctx.getStart().getLine());
     }
 
     @Override
     public Statement visitContinue(FlaskExprParser.ContinueContext ctx) {
-        return new ContinueStatement();
+        return new ContinueStatement(ctx.getStart().getLine());
     }
 
 
@@ -86,7 +86,7 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
         FunctionDef func = (FunctionDef) visitFunctionDef(ctx.functionDef());
 
-        return new FunctionDef(
+        return new FunctionDef(ctx.getStart().getLine(),
                 func.getName(),
                 func.getParameters(),
                 func.getBody(),
@@ -120,8 +120,9 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
         for (var stmtCtx : ctx.statement()) {
             body.add((Statement) visit(stmtCtx));
         }
+
         scope.pop();
-        return new FunctionDef(name, parameters, body,null);
+        return new FunctionDef(ctx.getStart().getLine(), name, parameters, body,null);
     }
 
 
@@ -143,8 +144,9 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 //                elseBody.add((Statement) visit(stmtCtx));
 //            }
 //        }
+
         scope.pop();
-        return new IfStatement(condition, ifBody, elseBody);
+        return new IfStatement(ctx.getStart().getLine(),condition, ifBody, elseBody);
     }
 
 
@@ -162,15 +164,16 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
         for(var statement : ctx.statement()){
             body.add((Statement) visit(statement));
         }
+
         scope.pop();
-        return new  ForStatement(expression,name,body);
+        return new  ForStatement(ctx.getStart().getLine(),expression,name,body);
 
     }
 
     @Override
     public Decorator visitDecorator(FlaskExprParser.DecoratorContext ctx) {
         Expression expr = expressionVisitor.visit(ctx.expr());
-        return new Decorator(expr);
+        return new Decorator(ctx.getStart().getLine(),expr);
     }
 
 }

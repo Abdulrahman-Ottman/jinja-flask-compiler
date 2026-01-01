@@ -8,10 +8,11 @@ public class FunctionDef extends Statement {
     private final List<Statement> body;
     private final List<Decorator> decorators;
 
-    public FunctionDef(String name,
+    public FunctionDef(int line,String name,
                        List<String> parameters,
                        List<Statement> body,
                        List<Decorator> decorators) {
+        super(line);
         this.name = name;
         this.parameters = parameters;
         this.body = body;
@@ -33,6 +34,22 @@ public class FunctionDef extends Statement {
     public List<Statement> getBody() {
         return body;
     }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new java.util.ArrayList<>();
+
+        if (decorators != null) {
+            children.addAll(decorators);
+        }
+
+        if (body != null) {
+            children.addAll(body);
+        }
+
+        return children;
+    }
+
 }
 
 

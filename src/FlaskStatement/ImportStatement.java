@@ -6,7 +6,8 @@ public class ImportStatement extends Statement {
     private final List<String> packageParts;
     private final List<String> importedNames;
 
-    public ImportStatement(List<String> packageParts, List<String> importedNames) {
+    public ImportStatement(int line ,List<String> packageParts, List<String> importedNames) {
+        super(line);
         this.packageParts = packageParts;
         this.importedNames = importedNames;
     }
@@ -17,5 +18,10 @@ public class ImportStatement extends Statement {
 
     public List<String> getImportedNames() {
         return importedNames;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of();
     }
 }
