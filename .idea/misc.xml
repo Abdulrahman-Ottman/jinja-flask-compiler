@@ -46,8 +46,8 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/antlr/grammar/Jinja2withHTMLandCSS/Jinja2withHTMLandCSSParser.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\amres\OneDrive\Documents\GitHub\jinja-flask-compiler\src" />
-          <option name="libDir" value="C:\Users\amres\OneDrive\Documents\GitHub\jinja-flask-compiler\src" />
+          <option name="outputDir" value="/src" />
+          <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="antlr.grammar.Jinja2withHTMLandCSS.gen" />
           <option name="language" value="" />

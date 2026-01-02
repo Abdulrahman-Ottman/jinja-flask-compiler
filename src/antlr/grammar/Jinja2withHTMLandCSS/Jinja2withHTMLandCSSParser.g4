@@ -8,7 +8,7 @@ prog
  ;
 
 jinja2Prog
-    : doctype? htmlelement+
+    : doctype? elementContent* EOF
     ;
 
 doctype
@@ -80,9 +80,10 @@ elementContent
     | htmlelement  #nestedElement
     | expression   #jinjaExpression
     | block        #jinjaBlock
+    | BLOCK_START IDDEFINER (IDDEFINER | ASSIGN | STRING | NUMBER)* BLOCK_END #jinjaStatement
     ;
 
-statement: (IDDEFINER | COLON | LPAREN | RPAREN | DOT )+;
+statement : (IDDEFINER | COLON | LPAREN | RPAREN | DOT | COMMA | PLUS | MINUS | STAR | DIVISION)+ ;
 
 expression
     : LCURLY LCURLY memberAccess RCURLY RCURLY

@@ -233,6 +233,18 @@ public class Jinja2withHTMLandCSSParserBaseListener implements Jinja2withHTMLand
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterJinjaStatement(Jinja2withHTMLandCSSParser.JinjaStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaStatement(Jinja2withHTMLandCSSParser.JinjaStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStatement(Jinja2withHTMLandCSSParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

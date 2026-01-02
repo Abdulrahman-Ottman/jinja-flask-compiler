@@ -38,30 +38,32 @@ public class Test {
         allErrors.addAll(runParser(t3));
         // Run for CSS
         System.out.println("\n--- Processing CSS ---");
-        //allErrors.add("ERRORS: "+Css);
         allErrors.addAll(runParser(Css));
         for( String erro :allErrors)
         {System.err.println(erro);}
         IO.println();
     }
     public static List<String> runParser(String filePath) throws Exception {
+        MYErrorListener.hasError=false;
         CharStream cs = fromFileName(filePath);
         Jinja2withHTMLandCSSLexer lexer = new Jinja2withHTMLandCSSLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Jinja2withHTMLandCSSParser parser = new Jinja2withHTMLandCSSParser(tokens);
-
+        parser.removeErrorListeners();
+        parser.addErrorListener(new MYErrorListener(filePath));
         // This enters through the 'prog' rule
         ParseTree tree = parser.prog();
 
-        BaseVisitor builder = new BaseVisitor();
-        ASTNode root = builder.visit(tree);
+        if (!MYErrorListener.hasError){
+            BaseVisitor builder = new BaseVisitor();
+            ASTNode root = builder.visit(tree);
 
-        System.out.println("<<<<<< AST >>>>>>");
-        root.print("");
-        if (!builder.semanticErrors.isEmpty())
-            builder.semanticErrors.addFirst("ERRORS for the file: "+filePath);
-        List<String> errors = List.copyOf(builder.semanticErrors);
-        builder.semanticErrors.clear();
-        return errors;
+            System.out.println("<<<<<< AST >>>>>>");
+            root.print("");
+            if (!builder.semanticErrors.isEmpty())
+                builder.semanticErrors.addFirst("ERRORS for the file: "+filePath);
+            return builder.semanticErrors;
+        }
+        return new ArrayList<>();
     }
 }

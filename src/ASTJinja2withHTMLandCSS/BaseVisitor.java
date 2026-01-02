@@ -11,10 +11,7 @@ import SymbolsTable.SymbolsTable;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParserBaseVisitor;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParser;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> {
     private final SymbolsTable htmlST = SymbolsTable.getHtmlInstance();
@@ -41,7 +38,7 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         if (ctx.doctype() != null)
             node.setDoctype((DoctypeNode) visit(ctx.doctype()));
 
-        for (var elem : ctx.htmlelement())
+        for (var elem : ctx.elementContent())
             node.addElement(visit(elem));
 
         return node;
@@ -54,6 +51,11 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitOpenCloseTag(Jinja2withHTMLandCSSParser.OpenCloseTagContext ctx) {
+        String s=ctx.startTag().tagName().getText();
+        String e=ctx.endTag().tagName().getText();
+        if (!Objects.equals(s,e)){
+            semanticErrors.add("Tag mismatch line: "+ctx.startTag().start.getLine()+" Header: "+"<"+s+">"+" line "+ctx.endTag().start.getLine()+" footer: "+"</"+e+">");
+        }
         StartTagNode start = (StartTagNode) visit(ctx.startTag());
         OpenCloseTagNode node = new OpenCloseTagNode(ctx.start.getLine(), start);
 
@@ -69,7 +71,7 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
     public ASTNode visitSelfClosingTag(Jinja2withHTMLandCSSParser.SelfClosingTagContext ctx) {
         VoidTagNameNode vtag = (VoidTagNameNode) visit(ctx.voidTagName());
         SelfClosingTagNode node = new SelfClosingTagNode(ctx.start.getLine(), vtag);
-
+        checkRequiredAttributes(vtag.getName(), ctx.attribute(), ctx.start.getLine());
         for (var att : ctx.attribute()) {
             AttributeNode attrNode = (AttributeNode) visit(att);
             node.addAttribute(attrNode);
@@ -85,7 +87,7 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
     public ASTNode visitStartTag(Jinja2withHTMLandCSSParser.StartTagContext ctx) {
         TagNameNode tn = (TagNameNode) visit(ctx.tagName());
         StartTagNode node = new StartTagNode(ctx.start.getLine(), tn);
-
+        checkRequiredAttributes(tn.getName(), ctx.attribute(), ctx.start.getLine());
         for (var att : ctx.attribute()) {
             AttributeNode attrNode = (AttributeNode) visit(att);
             node.addAttribute(attrNode);
@@ -195,11 +197,43 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
         for (var id : ctx.IDDEFINER()) node.addPart(id.getText());
         return node;
     }
+    @Override
+    public ASTNode visitJinjaStatement(Jinja2withHTMLandCSSParser.JinjaStatementContext ctx) {
+        // We want to capture the specific instruction inside the {% %}
+        // Example: "{% set x = 10 %}" -> captures "set x = 10"
+
+        StringBuilder sb = new StringBuilder();
+
+        // Iterate through children starting after BLOCK_START and before BLOCK_END
+        for (int i = 1; i < ctx.getChildCount() - 1; i++) {
+            sb.append(ctx.getChild(i).getText()).append(" ");
+        }
+
+        String statementText = sb.toString().trim();
+
+        // Optional: Add semantic check for 'set' to register variables in Symbol Table
+        if (statementText.startsWith("set")) {
+            String[] parts = statementText.split("\\s+");
+            if (parts.length > 1) {
+                String varName = parts[1]; // The 'x' in 'set x = 10'
+                Map<String, Object> details = new LinkedHashMap<>();
+                details.put("type", "jinja_var");
+                details.put("line", ctx.start.getLine());
+                htmlST.addHtmlSymbol(varName, details);
+            }
+        }
+
+        return new JinjaStatementNode(ctx.start.getLine(), statementText);
+    }
 
     @Override
     public ASTNode visitBlock(Jinja2withHTMLandCSSParser.BlockContext ctx) {
         String iterator = ctx.IDDEFINER(0).getText();
         String collection = ctx.IDDEFINER(1).getText();
+        // Check for Shadowing
+        if (htmlST.getHtmlSymbol(iterator) != null) {
+            semanticErrors.add("Line " + ctx.start.getLine() + ": Warning: Iterator '" + iterator + "' shadows an existing variable.");
+        }
 
         Map<String, Object> dataSent = (Map<String, Object>) htmlST.getHtmlSymbol("data_sent");
         if (dataSent == null || !dataSent.containsKey(collection)) {
@@ -244,6 +278,21 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
                     }
                 }
             }
+        }
+    }
+    private void checkRequiredAttributes(String tagName, List<Jinja2withHTMLandCSSParser.AttributeContext> attributes, int line) {
+        // Extract names directly from the context text
+        List<String> attrNames = new ArrayList<>();
+        for (var attrCtx : attributes) {
+            // This assumes your attribute grammar has an attributeName rule
+            attrNames.add(attrCtx.getText().split("=")[0].toLowerCase().trim());
+        }
+
+        if (tagName.equals("img") && !attrNames.contains("src")) {
+            semanticErrors.add("Line " + line + ": Missing 'src' for <img> tag.");
+        }
+        if (tagName.equals("a") && !attrNames.contains("href")) {
+            semanticErrors.add("Line " + line + ": Missing 'href' for <a> tag.");
         }
     }
 
@@ -322,7 +371,37 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitCssDeclaration(Jinja2withHTMLandCSSParser.CssDeclarationContext ctx) {
-        CSSPropertyNameNode prop = CSSPropertyFactory.create(ctx.start.getLine(), ctx.cssProperty().getText());
+        String propName = ctx.cssProperty().getText().toLowerCase();
+        String valueText = ctx.cssValue().getText().toLowerCase();
+
+        // Check if the value contains specific atom types based on the context rules
+        boolean hasColor = ctx.cssValue().cssValueAtom().stream()
+                .anyMatch(a -> a instanceof Jinja2withHTMLandCSSParser.CssColorContext);
+
+        boolean hasNumber = ctx.cssValue().cssValueAtom().stream()
+                .anyMatch(a -> a instanceof Jinja2withHTMLandCSSParser.CssNumberContext);
+
+        // Logic: Color validation
+        if ((propName.equals("color") || propName.contains("background-color")) && !hasColor) {
+            // We also check for identifiers like 'red' or 'transparent'
+            boolean hasColorIdent = ctx.cssValue().cssValueAtom().stream()
+                    .anyMatch(a -> a instanceof Jinja2withHTMLandCSSParser.CssIdentifierContext);
+
+            if (!hasColorIdent) {
+                semanticErrors.add("Line " + ctx.start.getLine() + ": CSS Property '" + propName + "' expects a color.");
+            }
+        }
+
+        // Logic: Dimension validation
+        if ((propName.equals("width") || propName.equals("height")) && !hasNumber) {
+            // Ignore 'auto' or 'inherit'
+            if (!valueText.contains("auto") && !valueText.contains("inherit")) {
+                semanticErrors.add("Line " + ctx.start.getLine() + ": CSS Property '" + propName + "' expects a numeric value.");
+            }
+        }
+
+        // Continue with original logic
+        CSSPropertyNameNode prop = CSSPropertyFactory.create(ctx.start.getLine(), propName);
         CSSValueNode value = (CSSValueNode) visit(ctx.cssValue());
         return new CSSDeclarationNode(ctx.start.getLine(), prop, value);
     }
