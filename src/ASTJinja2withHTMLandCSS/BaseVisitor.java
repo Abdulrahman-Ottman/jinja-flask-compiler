@@ -176,7 +176,7 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitMemberAccess(Jinja2withHTMLandCSSParser.MemberAccessContext ctx) {
-        String baseVar = ctx.IDDEFINER(0).getText();
+        String baseVar = ctx.anyId(0).getText();
         Map<String, Object> dataSent = (Map<String, Object>) htmlST.getHtmlSymbol("data_sent");
 
         // Check if base exists (either in data_sent or as a local iterator)
@@ -188,13 +188,13 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
         }
         // Advanced: If base is found and there are nested parts (e.g., pr.price)
-        if (existsGlobally && ctx.IDDEFINER().size() > 1) {
+        if (existsGlobally && ctx.anyId().size() > 1) {
             // You could reflectively check if the object in dataSent has the subsequent keys
             // This is where you'd catch 'pr.Price' vs 'pr.price' errors
         }
 
         MemberAccessNode node = new MemberAccessNode(ctx.start.getLine());
-        for (var id : ctx.IDDEFINER()) node.addPart(id.getText());
+        for (var id : ctx.anyId()) node.addPart(id.getText());
         return node;
     }
     @Override
@@ -228,8 +228,8 @@ public class BaseVisitor extends Jinja2withHTMLandCSSParserBaseVisitor<ASTNode> 
 
     @Override
     public ASTNode visitBlock(Jinja2withHTMLandCSSParser.BlockContext ctx) {
-        String iterator = ctx.IDDEFINER(0).getText();
-        String collection = ctx.IDDEFINER(1).getText();
+        String iterator = ctx.anyId(0).getText();
+        String collection = ctx.anyId(1).getText();
         // Check for Shadowing
         if (htmlST.getHtmlSymbol(iterator) != null) {
             semanticErrors.add("Line " + ctx.start.getLine() + ": Warning: Iterator '" + iterator + "' shadows an existing variable.");

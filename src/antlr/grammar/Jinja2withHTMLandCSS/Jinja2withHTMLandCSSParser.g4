@@ -83,22 +83,30 @@ elementContent
     | BLOCK_START IDDEFINER (IDDEFINER | ASSIGN | STRING | NUMBER)* BLOCK_END #jinjaStatement
     ;
 
-statement : (IDDEFINER | COLON | LPAREN | RPAREN | DOT | COMMA | PLUS | MINUS | STAR | DIVISION)+ ;
+statement : (anyId| COLON | LPAREN | RPAREN | DOT | COMMA | PLUS | MINUS | STAR | DIVISION)+ ;
 
 expression
     : LCURLY LCURLY memberAccess RCURLY RCURLY
     ;
 
 memberAccess
-    : IDDEFINER (DOT IDDEFINER)*
+    : anyId (DOT anyId)*
     ;
 
 block
-    : BLOCK_START FOR IDDEFINER IN IDDEFINER BLOCK_END
+    : BLOCK_START FOR anyId IN anyId BLOCK_END
       elementContent*
       BLOCK_START END_FOR BLOCK_END
     ;
-
+anyId
+    : IDDEFINER
+    | HTML_TAG | HEAD_TAG | BODY_TAG | DIV_TAG | A_TAG | P_TAG
+    | SPAN_TAG | FORM_TAG | LABEL_TAG | BUTTON_TAG | UL_TAG | LI_TAG
+    | TITLE_TAG | META_TAG | LINK_TAG | IMG_TAG | INPUT_TAG | TEXTAREA_TAG
+    | NAME_ATT | TYPE_ATT | CLASS_ATT | HREF_ATT | SRC_ATT | REL_ATT
+    | STYLE_ATT | CHARSET_ATT | ALT_ATT | METHOD_ATT | STEP_ATT | REQUIRED_ATT
+    | FOR | IN | BOOL
+    ;
 // ================= CSS =================
 
 cssProg
