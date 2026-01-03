@@ -1,4 +1,6 @@
 package ASTJinja2withHTMLandCSS.Jinja2;
+import ASTJinja2withHTMLandCSS.ASTNode;
+
 import java.util.*;
 
 public class SelfClosingTagNode extends HTMLElementNode {
@@ -8,6 +10,18 @@ public class SelfClosingTagNode extends HTMLElementNode {
     public SelfClosingTagNode(int line, VoidTagNameNode tagName) {
         super("SelfClosingTag", line);
         this.tagName = tagName;
+    }
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children= new ArrayList<>();
+        if (tagName != null)children.add(tagName);
+        children.addAll( attributes);
+        return children;
+    }
+
+    @Override
+    protected String getNodeValue() {
+        return " <" + tagName.getName() + " />";
     }
 
     public void addAttribute(AttributeNode a) { attributes.add(a); }

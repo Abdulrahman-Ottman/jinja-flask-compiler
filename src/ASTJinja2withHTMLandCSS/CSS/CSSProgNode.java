@@ -16,6 +16,10 @@ public class CSSProgNode extends ASTNode {
     public void addRule(CSSRuleNode rule) {
         rules.add(rule);
     }
+    @Override
+    public List<ASTNode> getChildren() {
+        return new ArrayList<>(rules);
+    }
 
     @Override
     public void print(String indent) {

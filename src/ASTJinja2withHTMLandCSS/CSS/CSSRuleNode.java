@@ -15,6 +15,15 @@ public class CSSRuleNode extends ASTNode {
         super("CSSRule", line);
         this.selectors = selectors;
     }
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new ArrayList<>();
+        if (selectors != null) {
+            children.add(selectors);
+        }
+        children.addAll(declarations);
+        return children;
+    }
 
     public void addDeclaration(CSSDeclarationNode d) {
         declarations.add(d);

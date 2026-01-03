@@ -10,6 +10,17 @@ public class StartTagNode extends ASTNode {
         super("StartTag", line);
         this.tagName = tagName;
     }
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children= new ArrayList<>();
+        if (tagName != null)children.add(tagName);
+        children.addAll(attributes);
+        return children;
+    }
+    @Override
+    protected String getNodeValue() {
+        return "<" + tagName.getName() + ">";
+    }
 
     public void addAttribute(AttributeNode a) { attributes.add(a); }
 

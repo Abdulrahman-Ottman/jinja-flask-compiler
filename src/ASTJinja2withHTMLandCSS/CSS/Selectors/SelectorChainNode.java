@@ -1,5 +1,6 @@
 package ASTJinja2withHTMLandCSS.CSS.Selectors;
 
+import ASTJinja2withHTMLandCSS.ASTNode;
 import ASTJinja2withHTMLandCSS.CSS.*;
 
 import java.util.ArrayList;
@@ -20,7 +21,14 @@ public class SelectorChainNode extends CSSSelectorNode {
     public void setPseudo(PseudoClassNode p) {
         this.pseudo = p;
     }
-
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new ArrayList<>(parts);
+        if (pseudo != null) {
+            children.add(pseudo);
+        }
+        return children;
+    }
     @Override
     public void print(String indent) {
         System.out.println(header(indent));

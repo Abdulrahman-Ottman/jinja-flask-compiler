@@ -160,6 +160,12 @@ public interface Jinja2withHTMLandCSSParserVisitor<T> extends ParseTreeVisitor<T
 	 */
 	T visitBlock(Jinja2withHTMLandCSSParser.BlockContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#anyId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnyId(Jinja2withHTMLandCSSParser.AnyIdContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link Jinja2withHTMLandCSSParser#cssProg}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

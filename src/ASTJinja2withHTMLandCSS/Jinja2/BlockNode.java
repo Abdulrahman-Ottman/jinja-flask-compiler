@@ -12,6 +12,15 @@ public class BlockNode extends ASTNode {
         this.iterator = iterator;
         this.collection = collection;
     }
+    @Override
+    public List<ASTNode> getChildren() {
+        return new ArrayList<>(content);
+    }
+
+    @Override
+    protected String getNodeValue() {
+        return " for " + iterator + " in " + collection;
+    }
 
     public void addContent(ASTNode node) { content.add(node); }
 

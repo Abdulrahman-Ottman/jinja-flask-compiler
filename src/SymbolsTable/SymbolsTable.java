@@ -5,6 +5,7 @@ import antlr.grammar.flask.ASTStatementsBuilderVisitor;
 import java.util.LinkedHashMap;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 
 public class SymbolsTable {
@@ -83,6 +84,23 @@ public class SymbolsTable {
                         inner.getValue());
             }
 
+            System.out.println("}\n");
+        }
+    }
+    public void printjinja2Symbols() {
+        if (HtmlSymbols.isEmpty()) {
+            System.out.println("(empty)");
+            return;
+        }
+        for (Map.Entry<String, Map<String, Object>> outer : HtmlSymbols.entrySet()) {
+            if (Objects.equals(outer.getKey(), "data_sent")){continue;}
+            System.out.println(outer.getKey() + " {");
+            Map<String, Object> innerMap = outer.getValue();
+            for (Map.Entry<String, Object> inner : innerMap.entrySet()) {
+                System.out.printf("  %-3s : %s%n",
+                        inner.getKey(),
+                        inner.getValue());
+            }
             System.out.println("}\n");
         }
     }

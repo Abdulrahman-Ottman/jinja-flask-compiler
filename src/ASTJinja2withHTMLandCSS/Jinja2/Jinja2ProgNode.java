@@ -19,6 +19,13 @@ public class Jinja2ProgNode extends ASTNode {
         if (doctype != null) doctype.print(indent + "  ");
         for (var e : elements) e.print(indent + "  ");
     }
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new ArrayList<>();
+        if (this.doctype != null) children.add(doctype);
+        children.addAll(elements);
+        return children;
+    }
 
 }
 

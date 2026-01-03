@@ -42,6 +42,7 @@ public class Test {
         for( String erro :allErrors)
         {System.err.println(erro);}
         IO.println();
+        symbolsTable.printjinja2Symbols();
     }
     public static List<String> runParser(String filePath) throws Exception {
         MYErrorListener.hasError=false;
@@ -51,15 +52,15 @@ public class Test {
         Jinja2withHTMLandCSSParser parser = new Jinja2withHTMLandCSSParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(new MYErrorListener(filePath));
-        // This enters through the 'prog' rule
+
         ParseTree tree = parser.prog();
 
         if (!MYErrorListener.hasError){
             BaseVisitor builder = new BaseVisitor();
             ASTNode root = builder.visit(tree);
 
-            System.out.println("<<<<<< AST >>>>>>");
-            root.print("");
+            System.out.println("\n"+filePath);
+            root.print("",true,0,false);
             if (!builder.semanticErrors.isEmpty())
                 builder.semanticErrors.addFirst("ERRORS for the file: "+filePath);
             return builder.semanticErrors;

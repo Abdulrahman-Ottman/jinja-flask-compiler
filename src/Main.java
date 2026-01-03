@@ -1,3 +1,4 @@
+import ASTJinja2withHTMLandCSS.Jinja2Runner;
 import SymbolsTable.SymbolsTable;
 import antlr.grammar.flask.AntlrToExpression;
 import antlr.grammar.flask.AntlrToProgram;
@@ -33,6 +34,7 @@ public class Main {
         System.out.println("=== AST ===");
         ASTPrettyPrinter.print(program);
 
+        Jinja2Runner.runDefaultSuite(false);
     }
 
 }

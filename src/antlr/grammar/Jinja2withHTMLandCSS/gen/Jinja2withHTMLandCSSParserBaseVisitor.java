@@ -179,6 +179,13 @@ public class Jinja2withHTMLandCSSParserBaseVisitor<T> extends AbstractParseTreeV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitAnyId(Jinja2withHTMLandCSSParser.AnyIdContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitCssProg(Jinja2withHTMLandCSSParser.CssProgContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

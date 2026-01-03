@@ -2,6 +2,8 @@ package ASTJinja2withHTMLandCSS.Jinja2;
 
 import ASTJinja2withHTMLandCSS.ASTNode;
 
+import java.util.List;
+
 public class AttributeNameNode extends ASTNode {
     private final String name;
 
@@ -12,6 +14,14 @@ public class AttributeNameNode extends ASTNode {
 
     public String getName() { return name; }
 
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of();
+    }
+    @Override
+    protected String getNodeValue() {
+        return name;
+    }
     @Override
     public void print(String indent) {
         String cls = getClass().getSimpleName();

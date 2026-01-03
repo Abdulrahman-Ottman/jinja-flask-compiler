@@ -1,6 +1,9 @@
 package ASTJinja2withHTMLandCSS.Jinja2;
 import ASTJinja2withHTMLandCSS.ASTNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AttributeNode extends ASTNode {
     private final AttributeNameNode name;
     private final AttributeValueNode value;
@@ -16,6 +19,13 @@ public class AttributeNode extends ASTNode {
         return value.getValue();
     }
 
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children= new ArrayList<>();
+        if (name!=null)children.add(name);
+        if (name!=null)children.add(value);
+        return children;
+    }
     @Override
     public void print(String indent) {
         System.out.println(header(indent));

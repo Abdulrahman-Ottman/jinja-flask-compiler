@@ -14,7 +14,14 @@ public class OpenCloseTagNode extends HTMLElementNode {
 
     public void addContent(ASTNode e) { content.add(e); }
     public void setEndTag(EndTagNode e) { this.end = e; }
-
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new ArrayList<>();
+        if (start != null)children.add(start);
+        children.addAll(content);
+        if (end != null)children.add(end);
+        return children;
+    }
     @Override
     public void print(String indent) {
         System.out.println(header(indent));

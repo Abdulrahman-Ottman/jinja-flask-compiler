@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ product.Name }}</title>
+    <title>{{ product.name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -11,7 +11,7 @@
 
 <div class="product-detail">
     <img src="/images/{{ product.image }}" class="detail-image">
-    <h1>{{ product.Name }}</h1>
+    <h1>{{ product.name }}</h1>
     <p class="price">$ {{ product.price }}</p>
     <p class="desc">{{ product.description }}</p>
 </div>

@@ -260,6 +260,16 @@ public interface Jinja2withHTMLandCSSParserListener extends ParseTreeListener {
 	 */
 	void exitBlock(Jinja2withHTMLandCSSParser.BlockContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#anyId}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnyId(Jinja2withHTMLandCSSParser.AnyIdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Jinja2withHTMLandCSSParser#anyId}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnyId(Jinja2withHTMLandCSSParser.AnyIdContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Jinja2withHTMLandCSSParser#cssProg}.
 	 * @param ctx the parse tree
 	 */

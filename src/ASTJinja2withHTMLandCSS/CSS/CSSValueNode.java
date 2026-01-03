@@ -18,6 +18,10 @@ public class CSSValueNode extends ASTNode {
     }
 
     @Override
+    public List<ASTNode> getChildren() {
+        return new ArrayList<>(atoms);
+    }
+    @Override
     public void print(String indent) {
         System.out.println(header(indent));
         for (var a : atoms) a.print(indent + "  ");

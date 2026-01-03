@@ -1,6 +1,8 @@
 package ASTJinja2withHTMLandCSS.CSS;
 import ASTJinja2withHTMLandCSS.ASTNode;
 
+import java.util.ArrayList;
+import java.util.List;
 public class CSSDeclarationNode extends ASTNode {
 
     private final CSSPropertyNameNode property;
@@ -10,6 +12,13 @@ public class CSSDeclarationNode extends ASTNode {
         super("CSSDeclaration", line);
         this.property = property;
         this.value = value;
+    }
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new ArrayList<>();
+        if (property != null) children.add(property);
+        if (value != null) children.add(value);
+        return children;
     }
 
     @Override

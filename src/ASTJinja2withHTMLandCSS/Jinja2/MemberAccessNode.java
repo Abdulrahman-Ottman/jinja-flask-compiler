@@ -10,6 +10,14 @@ public class MemberAccessNode extends ASTNode {
     }
 
     public void addPart(String part) { chain.add(part); }
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of();
+    }
+    @Override
+    protected String getNodeValue() {
+        return String.join(".", chain);
+    }
 
     @Override
     public void print(String indent) {

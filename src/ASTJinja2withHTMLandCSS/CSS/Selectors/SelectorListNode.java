@@ -16,6 +16,10 @@ public class SelectorListNode extends ASTNode {
     public void addSelector(SelectorChainNode s) {
         selectors.add(s);
     }
+    @Override
+    public List<ASTNode> getChildren() {
+        return new ArrayList<>(selectors);
+    }
 
     @Override
     public void print(String indent) {
