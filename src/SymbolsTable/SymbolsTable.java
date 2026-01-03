@@ -1,8 +1,9 @@
 package SymbolsTable;
 
-//import antlr.grammar.flask.ASTStatementsBuilderVisitor;
+import antlr.grammar.flask.ASTStatementsBuilderVisitor;
 
 import java.util.LinkedHashMap;
+
 import java.util.Map;
 import java.util.Stack;
 
@@ -48,7 +49,7 @@ public class SymbolsTable {
 
     public Map<String, Object> getFlaskSymbol (String key){
         Stack<String> temp = new Stack<>();
-       // temp.addAll(ASTStatementsBuilderVisitor.scope);
+        temp.addAll(ASTStatementsBuilderVisitor.scope);
 
         while(!temp.isEmpty()){
             String searchingScope = temp.pop();
@@ -63,4 +64,27 @@ public class SymbolsTable {
 
     public void clearFlaskST(){ FlaskSymbols.clear();}
     public void clearHtmlST(){ HtmlSymbols.clear();}
+
+
+    public void printFlaskSymbols() {
+        Map<String, Map<String, Object>> flaskSymbols = FlaskSymbols;
+        if (flaskSymbols.isEmpty()) {
+            System.out.println("(empty)");
+            return;
+        }
+
+        for (Map.Entry<String, Map<String, Object>> outer : flaskSymbols.entrySet()) {
+            System.out.println(outer.getKey() + " {");
+
+            Map<String, Object> innerMap = outer.getValue();
+            for (Map.Entry<String, Object> inner : innerMap.entrySet()) {
+                System.out.printf("  %-15s : %s%n",
+                        inner.getKey(),
+                        inner.getValue());
+            }
+
+            System.out.println("}\n");
+        }
+    }
+
 }
