@@ -1,9 +1,12 @@
 package FlaskStatement;
 
+import java.util.List;
+
 public class ReturnStatement extends Statement {
     private final Expression expression; // can be null
 
-    public ReturnStatement(Expression expression) {
+    public ReturnStatement(int line ,Expression expression) {
+        super(line);
         this.expression = expression;
     }
 
@@ -14,5 +17,13 @@ public class ReturnStatement extends Statement {
     public Expression getExpression() {
         return expression;
     }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return expression == null
+                ? List.of()
+                : List.of(expression);
+    }
+
 }
 

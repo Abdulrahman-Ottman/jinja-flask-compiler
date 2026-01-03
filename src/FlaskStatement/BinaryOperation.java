@@ -1,11 +1,14 @@
 package FlaskStatement;  // Assuming same package as your other AST nodes
 
+import java.util.List;
+
 public class BinaryOperation extends Expression {
     public  Expression left;
     public  Operator op;
     public Expression right;
 
-    public BinaryOperation(Expression left, Operator op, Expression right) {
+    public BinaryOperation(int line ,Expression left, Operator op, Expression right) {
+        super(line);
         this.left = left;
         this.op = op;
         this.right = right;
@@ -13,8 +16,15 @@ public class BinaryOperation extends Expression {
 
     @Override
     public String toString() {
-        return "(" + left + " " + op.symbol + " " + right + ")";
+        return getClass().getSimpleName();
     }
+
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of(left, right);
+    }
+
 
     public enum Operator {
         ADD("+"), SUB("-"), MUL("*"), DIV("/"),

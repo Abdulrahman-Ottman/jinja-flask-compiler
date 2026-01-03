@@ -9,9 +9,10 @@ public class FunctionCall extends Expression{
     public  List<Expression> args;
     public  Map<String, Expression> kwargs;
 
-    public FunctionCall(Expression called,
+    public FunctionCall(int line ,Expression called,
                         List<Expression> args,
                         Map<String, Expression> kwargs) {
+        super(line);
         this.called = called;
         this.args = Collections.unmodifiableList(args);
         this.kwargs = Collections.unmodifiableMap(kwargs);
@@ -35,4 +36,24 @@ public class FunctionCall extends Expression{
         sb.append(")");
         return sb.toString();
     }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new java.util.ArrayList<>();
+
+        if (called != null) {
+            children.add(called);
+        }
+
+        if (args != null) {
+            children.addAll(args);
+        }
+
+        if (kwargs != null) {
+            children.addAll(kwargs.values());
+        }
+
+        return children;
+    }
+
 }

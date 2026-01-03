@@ -1,10 +1,13 @@
 package FlaskStatement;
 
+import java.util.List;
+
 public class Assignment extends Statement {
     private final Expression left;
     private final Expression right;
 
-    public Assignment(Expression left, Expression right) {
+    public Assignment(int line,Expression left, Expression right) {
+        super(line);
         this.left = left;
         this.right = right;
     }
@@ -20,6 +23,13 @@ public class Assignment extends Statement {
 
     @Override
     public String toString() {
-        return left.toString() + "=" + right.toString();
+        return getClass().getSimpleName();
     }
+
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of(left, right);
+    }
+
 }

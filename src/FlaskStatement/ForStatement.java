@@ -7,9 +7,10 @@ public class ForStatement extends Statement {
     private final String iteratorName;
     private final List<Statement> body;
 
-    public ForStatement(Expression iterableExpression,
+    public ForStatement(int line,Expression iterableExpression,
                         String iteratorName,
                         List<Statement> body) {
+        super(line);
         this.iterableExpression = iterableExpression;
         this.iteratorName = iteratorName;
         this.body = body;
@@ -29,6 +30,23 @@ public class ForStatement extends Statement {
 
     @Override
     public String toString() {
-        return "Expression : " + iterableExpression.toString() +"\n iteratorName :"+iteratorName + "\n body:" + body.toString();
+        return getClass().getSimpleName();
     }
+
+
+    @Override
+    public List<ASTNode> getChildren() {
+        List<ASTNode> children = new java.util.ArrayList<>();
+
+        if (iterableExpression != null) {
+            children.add(iterableExpression);
+        }
+
+        if (body != null) {
+            children.addAll(body);
+        }
+
+        return children;
+    }
+
 }

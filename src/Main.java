@@ -1,3 +1,4 @@
+import SymbolsTable.SymbolsTable;
 import antlr.grammar.flask.AntlrToExpression;
 import antlr.grammar.flask.AntlrToProgram;
 import org.antlr.v4.runtime.*;
@@ -13,7 +14,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //        // Load the input file
-        String code = Files.readString(Paths.get("text.py"));
+        String code = Files.readString(Paths.get("Testing Project/FlaskTestingApp/app.py"));
 //
 //        // Create lexer
         FlaskExprLexer lexer = new FlaskExprLexer(CharStreams.fromString(code));
@@ -27,7 +28,8 @@ public class Main {
 
         AntlrToProgram programVisitor = new AntlrToProgram();
         Program program = (Program) programVisitor.visit(tree);
-
+        SymbolsTable st = SymbolsTable.getFlaskInstance();
+        st.printFlaskSymbols();
         System.out.println("=== AST ===");
         ASTPrettyPrinter.print(program);
 

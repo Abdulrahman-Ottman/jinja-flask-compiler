@@ -1,14 +1,22 @@
 package FlaskStatement;
 
-public class Name extends Expression{
-    public String id;
+import java.util.List;
 
-    public Name(String id) {
+public class Name extends Expression {
+    public final String id;
+
+    public Name(int line, String id) {
+        super(line);
         this.id = id;
     }
 
     @Override
     public String toString() {
         return id;
+    }
+
+    @Override
+    public List<ASTNode> getChildren() {
+        return List.of(); // leaf
     }
 }
