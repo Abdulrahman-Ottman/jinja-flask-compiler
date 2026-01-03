@@ -42,6 +42,9 @@ public class SymbolsTable {
     public Map<String, Object> getHtmlSymbol(String key) {
         return HtmlSymbols.get(key);
     }
+    public void removehtmlkey(String key){
+        HtmlSymbols.remove(key);
+    }
 
 
     public Map<String, Object> getFlaskSymbol (String key){

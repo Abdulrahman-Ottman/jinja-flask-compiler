@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ product.name }}</title>
+    <title>{{ product.Name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<a href="/" class="back-btn">← Back</a>
+<a href="/" class="back-btn">Back</a>
 
 <div class="product-detail">
     <img src="/images/{{ product.image }}" class="detail-image">
-    <h1>{{ product.name }}</h1>
+    <h1>{{ product.Name }}</h1>
     <p class="price">$ {{ product.price }}</p>
     <p class="desc">{{ product.description }}</p>
 </div>
