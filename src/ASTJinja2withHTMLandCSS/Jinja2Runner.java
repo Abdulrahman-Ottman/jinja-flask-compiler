@@ -3,6 +3,7 @@ package ASTJinja2withHTMLandCSS;
 import SymbolsTable.SymbolsTable;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSLexer;
 import antlr.grammar.Jinja2withHTMLandCSS.gen.Jinja2withHTMLandCSSParser;
+import org.antlr.v4.gui.Trees;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -61,6 +62,7 @@ public class Jinja2Runner {
         parser.addErrorListener(new MYErrorListener(filePath));
 
         ParseTree tree = parser.prog();
+        Trees.inspect(tree, parser);
 
         if (!MYErrorListener.hasError) {
             BaseVisitor builder = new BaseVisitor();

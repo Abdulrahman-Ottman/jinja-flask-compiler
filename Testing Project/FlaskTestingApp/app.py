@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 
 app = Flask(__name__)
 
-
-
 # Serve images folder
 @app.route("/images/<path:filename>")
 def images(filename):
@@ -22,7 +20,7 @@ products = [
         "id": 2,
         "name": "Phone",
         "price": 499,
-        "description": "High-quality camera smartphone.",
+        "description": "High-quality \\camera smartphone.",
         "image": "phone.jpg"
     },
     {
@@ -34,9 +32,12 @@ products = [
     }
 ]
 
+
+
+
+
 # Home page – list products
 @app.route("/")
-
 def home():
     return render_template("index.html", products=products)
 

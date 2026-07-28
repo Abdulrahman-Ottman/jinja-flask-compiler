@@ -3,20 +3,28 @@ package antlr.grammar.flask;
 import FlaskStatement.*;
 import SymbolsTable.SymbolsTable;
 
-
 import java.util.*;
 
 public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<Statement>{
     AntlrToExpression expressionVisitor = new AntlrToExpression();
     SymbolsTable sym = SymbolsTable.getFlaskInstance();
-    public static Stack<String> scope = new Stack<>();
-
+    int loopDepth =0;
+//    public static Stack<String> scope = new Stack<>();
+    private Scope currentScope;
     int forCounter = 0;
     int ifCounter =0;
     public ASTStatementsBuilderVisitor() {
-        scope.push("main");
+        this.currentScope = new Scope(null, "main", Scope.ScopeType.GLOBAL);
+    }
+    private void pushScope(String name, Scope.ScopeType type) {
+        this.currentScope = new Scope(this.currentScope, name, type);
     }
 
+    private void popScope() {
+        if (this.currentScope.getParent() != null) {
+            this.currentScope = this.currentScope.getParent();
+        }
+    }
     @Override
     public Statement visitImportstatement(FlaskExprParser.ImportstatementContext ctx) {
         List<String> packageParts = new ArrayList<>();
@@ -33,28 +41,29 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
     }
 
+
     @Override
     public Statement visitAssignment(FlaskExprParser.AssignmentContext ctx) {
+        Expression left = expressionVisitor.visit(ctx.expr(0));
+        Expression right = expressionVisitor.visit(ctx.expr(1));
 
+        if (!(left instanceof Name || left instanceof Subscript || left instanceof Attribute)) {
+            throw new RuntimeException("SyntaxError: cannot assign to expression type on left-hand side at line " + ctx.getStart().getLine());
+        }
+        String varName = left.toString();
+        // 1. Define the variable in our new object-based local scope
+        currentScope.define(varName, right);
 
-        Expression left =  expressionVisitor.visit(ctx.expr(0));
-        Expression right =  expressionVisitor.visit(ctx.expr(1));
-        //if the sym already contains the left, it will update the value automatically
-        Map<String,Object> values = new LinkedHashMap<>();
-        values.put("value",right);
-        values.put("scope",scope.peek());
-        sym.addFlaskSymbol(scope.peek()+"."+left.toString(),values);
-
-        return new Assignment(ctx.getStart().getLine(),left, right);
+        return new Assignment(ctx.getStart().getLine(), left, right);
     }
-
-
     @Override
     public Statement visitReturnStmt(FlaskExprParser.ReturnStmtContext ctx) {
+        if (currentScope.getType() == Scope.ScopeType.GLOBAL) {
+            throw new RuntimeException("SyntaxError: 'return' outside function");
+        }
         Expression expression = expressionVisitor.visit(ctx.expr());
+
         return new ReturnStatement(ctx.getStart().getLine(),expression);
-
-
     }
 
 
@@ -67,14 +76,19 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
     @Override
     public Statement visitBreak(FlaskExprParser.BreakContext ctx) {
+        if (loopDepth == 0) {
+            throw new RuntimeException("SyntaxError: 'break' outside loop at line " + ctx.getStart().getLine());
+        }
         return new BreakStatement(ctx.getStart().getLine());
     }
 
     @Override
     public Statement visitContinue(FlaskExprParser.ContinueContext ctx) {
+        if (loopDepth == 0) {
+            throw new RuntimeException("SyntaxError: 'continue' outside loop at line " + ctx.getStart().getLine());
+        }
         return new ContinueStatement(ctx.getStart().getLine());
     }
-
 
     @Override
     public Statement visitFunctionDefstatementment(FlaskExprParser.FunctionDefstatementmentContext ctx) {
@@ -96,41 +110,39 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
 
     @Override
     public Statement visitFunctionDef(FlaskExprParser.FunctionDefContext ctx) {
-
         // 1) Name of function
         String name = ctx.NAME(0).getText();
+
         // 2) Parameters
         List<String> parameters = new ArrayList<>();
         for (int i = 1; i < ctx.NAME().size(); i++) {
             parameters.add(ctx.NAME(i).getText());
         }
 
-        Map<String,Object> values = new LinkedHashMap<>();
-        values.put("name",name);
-        values.put("type","function");
-        values.put("parameters",parameters);
-        sym.addFlaskSymbol(scope.peek()+"."+name,values);
+        // 3) Push New Function Scope (Python local execution block)
+        pushScope(name, Scope.ScopeType.FUNCTION);
 
+        // Define parameters inside this local scope namespace
+        for (String param : parameters) {
+            currentScope.define(param, "parameter");
+        }
 
-
-
-        scope.push(scope.peek()+"."+name);
-        // 3) Body statements
+        // 4) Parse Body statements inside this newly bounded environment
         List<Statement> body = new ArrayList<>();
         for (var stmtCtx : ctx.statement()) {
             body.add((Statement) visit(stmtCtx));
         }
 
-        scope.pop();
-        return new FunctionDef(ctx.getStart().getLine(), name, parameters, body,null);
+        // 5) Exit back out to parent scope context
+        popScope();
+
+        return new FunctionDef(ctx.getStart().getLine(), name, parameters, body, null);
     }
 
 
     @Override
     public Statement visitIfstatement(FlaskExprParser.IfstatementContext ctx) {
-
-        ifCounter++;
-        scope.push(scope.peek() + ".if"+ifCounter);
+        // REFACTOR NOTE: Removed pushScope / popScope because Python 'if' has no local scope block.
         Expression condition = expressionVisitor.visit(ctx.expr());
 
         List<Statement> ifBody = new ArrayList<>();
@@ -139,37 +151,33 @@ public class ASTStatementsBuilderVisitor  extends  FlaskExprParserBaseVisitor<St
         }
 
         List<Statement> elseBody = new ArrayList<>();
-//        if (ctx.ELSE() != null) {
-//            for (var stmtCtx : ctx.elseStatement().statement()) {
-//                elseBody.add((Statement) visit(stmtCtx));
-//            }
-//        }
+        // Un-comment and adjust if your elseStatement rule is active:
+        // if (ctx.elseStatement() != null) {
+        //     for (var stmtCtx : ctx.elseStatement().statement()) {
+        //         elseBody.add((Statement) visit(stmtCtx));
+        //     }
+        // }
 
-        scope.pop();
-        return new IfStatement(ctx.getStart().getLine(),condition, ifBody, elseBody);
+        return new IfStatement(ctx.getStart().getLine(), condition, ifBody, elseBody);
     }
-
-
 
     @Override
     public Statement visitForstatement(FlaskExprParser.ForstatementContext ctx) {
-
-        forCounter++;
-        scope.push(scope.peek() + ".for"+forCounter);
-
+        // REFACTOR NOTE: Removed pushScope / popScope because Python 'for' loops share scope with their surroundings.
         String name = ctx.NAME().getText();
         Expression expression = expressionVisitor.visit(ctx.expr());
 
+        // The loop control variable is declared/updated right in the current surrounding scope
+        currentScope.define(name, expression);
+        loopDepth++;
         List<Statement> body = new ArrayList<>();
-        for(var statement : ctx.statement()){
+        for (var statement : ctx.statement()) {
             body.add((Statement) visit(statement));
         }
+        loopDepth--;
 
-        scope.pop();
-        return new  ForStatement(ctx.getStart().getLine(),expression,name,body);
-
+        return new ForStatement(ctx.getStart().getLine(), expression, name, body);
     }
-
     @Override
     public Decorator visitDecorator(FlaskExprParser.DecoratorContext ctx) {
         Expression expr = expressionVisitor.visit(ctx.expr());

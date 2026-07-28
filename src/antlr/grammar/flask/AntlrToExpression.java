@@ -111,29 +111,7 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
         Expression left  = visit(ctx.expr(0));
         Expression right = visit(ctx.expr(1));
 
-        if (right instanceof Name) {
-            String varName = ((Name) right).id;
-            if (symbolsTable.getFlaskSymbol(varName) == null) {
-                throw new RuntimeException("The variable '" + varName + "' has not been declared");
-            }
-        } else if(right instanceof FunctionCall){
-            String varName = ((FunctionCall) right).called.toString();
-            if (symbolsTable.getFlaskSymbol(varName) == null) {
-                throw new RuntimeException("The function '" + varName + "' has not been declared");
-            }
-        }
 
-        if (left instanceof Name) {
-            String varName = ((Name) left).id;
-            if (symbolsTable.getFlaskSymbol(varName) == null) {
-                throw new RuntimeException("The variable '" + varName + "' has not been declared");
-            }
-        } else if(left instanceof FunctionCall){
-            String varName = ((FunctionCall) left).called.toString();
-            if (symbolsTable.getFlaskSymbol(varName) == null) {
-                throw new RuntimeException("The function '" + varName + "' has not been declared");
-            }
-        }
         return binOp(ctx.getStart().getLine(),left, right, "*");
     }
 
@@ -176,9 +154,6 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
             functionName = ((Attribute) called).attribute;
         }
 
-        if (!((symbolsTable.getFlaskSymbol(functionName)!=null)&&(symbolsTable.getFlaskSymbol(functionName).get("type")=="function"))&&!builtInFunctions.contains(functionName)){
-            throw  new RuntimeException("function " + functionName + " has not be declared");
-        }
 
 
 
@@ -188,7 +163,8 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
         Map<String, Expression> kwargs = new LinkedHashMap<>();
 
 
-
+// Keep track of our structural argument ordering checks
+        boolean seenKeyword = false;
         int i = 2; // position after LPAREN
         int childCount = ctx.getChildCount();
 
@@ -207,13 +183,23 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
                     && ctx.getChild(i + 2) instanceof FlaskExprParser.ExprContext valueCtx) {
 
                 String kwName = nameNode.getText();
+
+                // Structural Check: Catch duplicate keys (e.g., render_template(x=1, x=2))
+                if (kwargs.containsKey(kwName)) {
+                    throw new RuntimeException("SyntaxError: keyword argument repeated: '" + kwName + "' at line " + ctx.getStart().getLine());
+                }
+
                 Expression value = visit(valueCtx);
                 kwargs.put(kwName, value);
-
+                seenKeyword = true; // Mark that keyword values have begun appearing
                 i += 3; // skip NAME, =, expr
             }
             // Case 2: Positional argument → expr
             else if (child instanceof FlaskExprParser.ExprContext exprCtx) {
+                // Structural Check: Catch positioning faults (e.g., call(x=1, 2))
+                if (seenKeyword) {
+                    throw new RuntimeException("SyntaxError: positional argument follows keyword argument at line " + ctx.getStart().getLine());
+                }
                 args.add(visit(exprCtx));
                 i++;
             }
@@ -223,26 +209,26 @@ public class AntlrToExpression extends FlaskExprParserBaseVisitor<Expression> {
             }
         }
 
-        //handiling data sent to html:
-        if (SendDataFunctions.contains(functionName)) {
-            SymbolsTable htmlST = SymbolsTable.getHtmlInstance();
-            Map<String,Object> sentVars = new LinkedHashMap<>();
+//        //handiling data sent to html:
+//        if (SendDataFunctions.contains(functionName)) {
+//            SymbolsTable htmlST = SymbolsTable.getHtmlInstance();
+//            Map<String,Object> sentVars = new LinkedHashMap<>();
+//
+//            for (Map.Entry<String, Expression> entry : kwargs.entrySet()) {
+//                String varName = entry.getKey();
+//                Expression value = entry.getValue();
+//                Object data =   symbolsTable.getFlaskSymbol(value.toString()).get("value");
+//                sentVars.put(varName,data);
+//            }
+//            Map<String,Object> mapVars = htmlST.getHtmlSymbol("data_sent");
+//            if (mapVars!=null){
+//                mapVars.putAll(sentVars);
+//            }else{
+//                htmlST.addHtmlSymbol("data_sent",sentVars);
+//            }
 
-            for (Map.Entry<String, Expression> entry : kwargs.entrySet()) {
-                String varName = entry.getKey();
-                Expression value = entry.getValue();
-                Object data =   symbolsTable.getFlaskSymbol(value.toString()).get("value");
-                sentVars.put(varName,data);
-            }
-            Map<String,Object> mapVars = htmlST.getHtmlSymbol("data_sent");
-            if (mapVars!=null){
-                mapVars.putAll(sentVars);
-            }else{
-                htmlST.addHtmlSymbol("data_sent",sentVars);
-            }
 
-
-        }
+//        }
 
         return new FunctionCall(ctx.getStart().getLine(),called, args, kwargs);
     }

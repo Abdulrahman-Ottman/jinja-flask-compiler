@@ -136,12 +136,14 @@ public class FlaskExprLexer extends Lexer {
 	            pending.add(virtual(BLOCKSTART, "<BLOCKSTART>"));
 	            blockExpected = false;
 	        } else if (indentLevel > prev) {
-	            indents.push(indentLevel);
-	            pending.add(virtual(BLOCKSTART, "<BLOCKSTART>"));
+	            throw new RuntimeException("Unexpected indentation");
 	        } else {
 	            while (!indents.isEmpty() && indents.peek() > indentLevel) {
 	                indents.pop();
 	                pending.add(virtual(BLOCKEND, "<BLOCKEND>"));
+	            }
+	            if (!indents.isEmpty() && indents.peek() != indentLevel) {
+	                    throw new RuntimeException("Inconsistent indentation");
 	            }
 	        }
 	    }

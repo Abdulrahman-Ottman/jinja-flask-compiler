@@ -47,21 +47,21 @@ public class SymbolsTable {
         HtmlSymbols.remove(key);
     }
 
-
-    public Map<String, Object> getFlaskSymbol (String key){
-        Stack<String> temp = new Stack<>();
-        temp.addAll(ASTStatementsBuilderVisitor.scope);
-
-        while(!temp.isEmpty()){
-            String searchingScope = temp.pop();
-            String searchingKey = searchingScope +"."+ key;
-            if (FlaskSymbols.containsKey(searchingKey)){
-                return FlaskSymbols.get(searchingKey);
-            }
-        }
-
-        return null;
-    }
+//
+//    public Map<String, Object> getFlaskSymbol (String key){
+//        Stack<String> temp = new Stack<>();
+//        temp.addAll(ASTStatementsBuilderVisitor.scope);
+//
+//        while(!temp.isEmpty()){
+//            String searchingScope = temp.pop();
+//            String searchingKey = searchingScope +"."+ key;
+//            if (FlaskSymbols.containsKey(searchingKey)){
+//                return FlaskSymbols.get(searchingKey);
+//            }
+//        }
+//
+//        return null;
+//    }
 
     public void clearFlaskST(){ FlaskSymbols.clear();}
     public void clearHtmlST(){ HtmlSymbols.clear();}
